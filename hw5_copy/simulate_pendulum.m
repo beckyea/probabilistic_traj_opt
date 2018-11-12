@@ -25,9 +25,9 @@ end
         
 opts = odeset('MaxStep', 0.1,'RelTol',1e-4,'AbsTol',1e-4);
 
-[t, x] = ode45(@(t,x) dynamics(t, x, u, dt, K, S), [0 dt*(N)*1.5], x_0, opts);
+[t, x_new] = ode45(@(t,x) dynamics(t, x, u, dt, K, S), [0 dt*(N)*1.5], x_0, opts);
 
-plot_pendulum_trajectory(t, x);
+plot_pendulum_trajectory(t, x_new);
 
 t = u_t;
 

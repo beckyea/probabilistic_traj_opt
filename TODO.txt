@@ -1,0 +1,28 @@
+Due Dates:
+Status Report: 11/14
+Project Presentation: 12/3
+
+TO THINGS DO (BY WED 11/14):
+- nominal traj for pendulum
+- integrate into dirtrel
+- get tommy on git! :)
+
+THINGS TO DO (BY WED 11/21): 
+- dynamics for 2d case
+- nominal traj for 2d case
+- adapt dirtrel for 2d case
+
+THINGS TO DO (BY WED 11/28):
+- lqg
+- belief state planning
+- determininstic sampling from EKF
+
+THINGS TO DO (BY MON 12/3):
+- presentation
+- begin paper
+- continue above
+
+THINGS TO DO (BY MON 12/10):
+- paper
+
+git@github.com:rabramowitz/probabilistic_traj_opt.git
