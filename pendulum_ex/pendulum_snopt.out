@@ -1,1 +1,181 @@
 1
+ 
+
+ SPECS file
+ ----------
+
+      Begin pendulum_snopt
+         Major iterations              500
+         Major Print level           000001
+      *                             (JFLXBT)
+         Minor print level                1
+         Solution                        No
+      End pendulum_snopt
+1
+ 
+ SNSPEC EXIT 100 -- finished successfully
+ SNSPEC INFO 101 -- SPECS file read
+      Minimize
+1
+ 
+ SNMEMA EXIT 100 -- finished successfully
+ SNMEMA INFO 104 -- memory requirements estimated
+
+ Nonzero derivs  Jij     10829
+ Non-constant    Jij's   10819     Constant Jij's          10
+1
+ 
+ SNJAC  EXIT 100 -- finished successfully
+ SNJAC  INFO 102 -- Jacobian structure estimated
+1
+ 
+ Parameters
+ ==========
+
+ Files
+ -----
+ Solution file..........         0       Old basis file ........         0       Standard input.........         5
+ Insert file............         0       New basis file ........         0       (Printer)..............         9
+ Punch file.............         0       Backup basis file......         0       (Specs file)...........         4
+ Load file..............         0       Dump file..............         0       Standard output........         6
+
+ Frequencies
+ -----------
+ Print frequency........       100       Check frequency........        60       Save new basis map.....       100
+ Summary frequency......       100       Factorization frequency        50       Expand frequency.......     10000
+
+ QP subproblems
+ --------------
+ QPsolver Cholesky......
+ Scale tolerance........     0.900       Minor feasibility tol..  1.00E-06       Iteration limit........     10000
+ Scale option...........         0       Minor optimality  tol..  1.00E-06       Minor print level......         1
+ Crash tolerance........     0.100       Pivot tolerance........  3.25E-11       New superbasics........        99
+ Crash option...........         3       Elastic weight.........  1.00E+05
+
+ Partial pricing
+ ---------------
+ LP Partial price.......         1       Prtl price section ( A)        90       Prtl price section (-I)       237
+ QP Partial price.......         1       Prtl price section ( A)        90       Prtl price section (-I)       237
+
+ The SQP Method
+ --------------
+ Minimize...............                 Cold start.............                 Proximal Point method..         1
+ Nonlinear objectiv vars        90       Objective Row..........         1       Function precision.....  3.00E-13
+ Unbounded step size....  1.00E+20       Superbasics limit......        90       Difference interval....  5.48E-07
+ Unbounded objective....  1.00E+10       Reduced Hessian dim....        90       Central difference int.  6.70E-05
+ Major step limit.......  2.00E+00       Nonderiv.  linesearch..                 Derivative option......         0
+ Major iterations limit.       500       Linesearch tolerance...   0.90000       Verify level...........         0
+ Minor iterations limit.       500       Penalty parameter......  0.00E+00       Major Print Level......         1
+ Time limit (secs)...... 9999999.0       Major optimality tol...  2.00E-06
+
+ Hessian Approximation
+ ---------------------
+ Hessian limited-memory.                 Hessian updates........        10       Hessian frequency......  99999999
+                                                                                 Hessian flush..........  99999999
+
+ Nonlinear constraints
+ ---------------------
+ Nonlinear constraints..       226       Major feasibility tol..  1.00E-06       Violation limit........  1.00E+01
+ Nonlinear Jacobian vars        90
+
+ Miscellaneous
+ -------------
+ LU factor tolerance....      3.99       LU singularity tol.....  3.25E-11       Timing level...........         3
+ LU update tolerance....      3.99       LU swap tolerance......  1.22E-04       Debug level............         0
+ LU partial  pivoting...                 eps (machine precision)  2.22E-16       System information.....        No
+                                                                                 Sticky parameters......        No
+
+ Total char*8  workspace       500       Total integer workspace    667001       Total real    workspace    519625
+ Total char*8  (minimum)       500       Total integer (minimum)     50206       Total real    (minimum)     83398
+ 
+1
+ 
+
+ 
+
+ Matrix statistics
+ -----------------
+               Total      Normal        Free       Fixed     Bounded
+ Rows            237           0           1          58         178
+ Columns          90           0          28           4          58
+
+ No. of matrix elements                10739     Density      50.347
+ Biggest  constant element        1.0000E+00  (excluding fixed columns,
+ Smallest constant element        1.0000E+00   free rows, and RHS)
+
+ No. of objective coefficients             0
+
+ Nonlinear constraints     226     Linear constraints      11
+ Nonlinear variables        90     Linear variables         0
+ Jacobian  variables        90     Objective variables     90
+ Total constraints         237     Total variables         90
+1
+ 
+ Initial basis
+ -------------
+
+ No basis file supplied
+
+ Crash option  3
+
+ Crash on linear E  rows:
+
+ Crash on linear LG rows:
+ Slacks    11  Free cols     0  Preferred     0
+ Unit       0  Double        0  Triangle      0  Pad     0
+
+ Itn      0: Feasible linear rows
+ Itn      0: PP1.  Minimizing  Norm(x-x0)
+
+ Itn      0: PP1.  Norm(x-x0) approximately minimized  (0.00E+00)
+
+ 
+ The user has defined       0   out of   10819   first  derivatives
+
+ Crash on nonlinear rows:
+ Slacks   151  Free cols    28  Preferred     0
+ Unit      21  Double        0  Triangle      7  Pad    19
+1
+ 
+ Itn      0: Hessian set to a scaled identity matrix
+ Itn     32: Infeasible QP subproblem
+ Itn     32: Elastic Phase 1 -- making non-elastic variables feasible
+ Itn     32: Infeasible subproblem. Elastic mode started with weight =  2.6E+08
+ 
+
+   Itns Major Minors    Step   nCon Feasible  Optimal  MeritFunction     L+U BSwap     nS condZHZ Penalty
+     38     0     38              1  1.3E+00  5.4E-02  6.1582227E+03    4246                              _  r i
+ Itn     38: Hessian set to a scaled identity matrix
+     38     1      0 3.3E-01      2  1.3E+00  3.9E-02  2.5470656E+09    6384                      3.4E+08 _  rli
+     38     2      0 5.0E-01      3  1.3E+00  2.1E-02  3.1910924E+09    6753                      1.5E+09 _  rli
+ Itn     38: Hessian set to a scaled identity matrix
+     44     3      6 1.0E+00      4  1.3E+00  1.7E-03  3.2926549E+09    7120                      2.7E+09 _  r i
+ Itn     44 -- Central differences invoked.  Small reduced gradient.
+     44     3      6 1.0E+00      4  1.3E+00  1.7E-03  3.2926549E+09    8518                      2.7E+09 _  r i c
+ Itn     44: Elastic weight increased to   2.574E+09
+ Itn     44: Elastic weight increased to   2.574E+11
+ Itn     44: Elastic weight increased to   2.574E+13
+     44     4      0 1.0E+00      5  1.3E+00 (2.5E-09) 3.2926454E+14    8478                      9.2E+04 _  r i c
+1
+ 
+ SNOPTA EXIT  10 -- the problem appears to be infeasible
+ SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+
+ Problem name                 pendulum
+ No. of iterations                  44   Objective            6.1349254955E+03
+ No. of major iterations             4   Linear    obj. term  0.0000000000E+00
+ Penalty parameter           9.202E+04   Nonlinear obj. term  6.1349254955E+03
+ Elastic weight                2.6E+13   Elastic   objective  3.2926454047E+14
+                                         Elastic infeas       1.2792868743E+01
+ User function calls (total)       739   Calls with modes 1,2 (known g)      5
+ Calls for forward differencing    540   Calls for central differencing    180
+ No. of degenerate steps             4   Percentage                       9.09
+ Max x                      59 3.1E+00   Max pi                     29 2.6E+13
+ Max Primal infeas         324 4.1E+00   Max Dual infeas            90 3.9E+00
+ Nonlinear constraint violn    4.1E+00
+ 
+ Time for MPS input                             0.00 seconds
+ Time for solving problem                       2.49 seconds
+ Time for solution output                       0.00 seconds
+ Time for constraint functions                  2.43 seconds
+ Time for objective function                    0.00 seconds

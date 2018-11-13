@@ -1,5 +1,5 @@
 Begin pendulum_snopt
-   Major iterations               750
+   Major iterations              500
    Major Print level           000001
 *                             (JFLXBT)
    Minor print level                1

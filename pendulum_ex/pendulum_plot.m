@@ -7,8 +7,7 @@ B = 2;
 xrange = [min(th) - B, max(th) + B];
 tic
 
-p = pendulum_params();
-L = p.L;
+global L;
 pend = .1;
 px = L*sin(th);
 py = - L*cos(th);

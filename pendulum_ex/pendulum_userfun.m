@@ -4,22 +4,34 @@ global N Q R;
 x = X(1:N*2);
 u = X(N*2+1:(N*3-1));
 h = X(end);
-F = zeros(N*2+1, 1);
-F(1) = pendulum_lw(x, u, h, Q, R);
-for i = 1:N-1
+F = zeros(N*8-3, 1);
+[l, E, K] = pendulum_lw(x, u, h, Q, R);
+F(1) = l;
+for i = 1:N
     x_i = [x(2*i-1) x(2*i)];
-    x_ip1 = [x(2*i+1) x(2*i+2)];
-    u_i = u(i);
-    F(1) = F(1) + cost(x_i, u_i, h);
-    [theta_fun, thetadot_fun] = f_h(x, u_i, h, x_ip1);
-    F(2*i) = theta_fun;
-    F(2*i+1) = thetadot_fun;
+    if i ~= N
+        x_ip1 = [x(2*i+1) x(2*i+2)];
+        u_i = u(i);
+        F(1) = F(1) + cost(x_i, u_i, h);
+        [theta_fun, thetadot_fun] = f_h(x, u_i, h, x_ip1);
+        F(2*i) = theta_fun;
+        F(2*i+1) = thetadot_fun;
+        sqrt_KEK = sqrt(K{i}*E{i}*K{i}');
+        F(2*N-1+6*i-1) = u_i + sqrt_KEK;
+        F(2*N-1+6*i) = u_i - sqrt_KEK; 
+    end
+    sqrt_E = sqrt(E{i});
+    F(2*N-1+6*i-5) = x_i(1) + sqrt_E(1,1);
+    F(2*N-1+6*i-4) = x_i(1) - sqrt_E(1,1);
+    F(2*N-1+6*i-3) = x_i(1) + sqrt_E(1,2);
+    F(2*N-1+6*i-2) = x_i(1) - sqrt_E(1,2);
+end
 end
 
-end
-
-function [c] = cost(~, ~, h)
-c = h;
+function [c] = cost(x, u, h)
+global Q R;
+dx = [x(1) - pi; x(2)];
+c = dx'*Q*dx + u*R*u + h;
 end
 
 function [theta_fun, thetadot_fun] = f_h(x, u, h, x_ip1)
@@ -29,5 +41,5 @@ global g L m;
     theta_ip1 = x_ip1(1);
     thetadot_ip1 = x_ip1(2);
     theta_fun = theta_ip1 - (theta_i + thetadot_i*h);
-    thetadot_fun = thetadot_ip1 - (thetadot_i - g*sin(theta_i)/L + u*h/(m*L*L));
+    thetadot_fun = thetadot_ip1 - (thetadot_i - g*h*sin(theta_i)/L + u*h/(m*L*L));
 end

@@ -6,7 +6,7 @@ Q = [10 0; 0 1];
 Q_N = 100 * eye(2);
 E1 = [0 0; 0 0];
 D = 0.04;
-N = 50; % NUMBER OF KNOT POINTS
+N = 30; % NUMBER OF KNOT POINTS
 
 
 g = 9.81;
