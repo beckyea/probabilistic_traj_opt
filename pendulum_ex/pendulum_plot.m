@@ -50,6 +50,6 @@ while i<=numel(t)
     else
         i = next_i(1);
     end
-    pause(t(i) - toc+ 1);
+    pause(t(i) - toc);
 
 end

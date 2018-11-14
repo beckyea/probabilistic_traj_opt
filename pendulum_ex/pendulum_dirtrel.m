@@ -18,12 +18,12 @@ x(end-1) = pi; x_lb(end-1) = pi; x_ub(end-1) = pi;
 x(end) = 0; x_lb(end) = 0; x_ub(end) = 0;
 
 u = ones(1*N-1, 1) * 0; % dimension of u * N
-u_lb = ones(1*N-1, 1) * -3;
-u_ub = ones(1*N-1, 1) * 3;
+u_lb = ones(1*N-1, 1) * -1;
+u_ub = ones(1*N-1, 1) * 1;
 
-h = 0.01; % time decision variable
-h_lb = 0.001;
-h_ub = 0.01;
+h = 0.001; % time decision variable
+h_lb = 0.0001;
+h_ub = 0.05;
 
 ObjAdd = 0;
 ObjRow = 1;
@@ -34,8 +34,8 @@ X_ub = [x_ub; u_ub; h_ub]; % xupp in SNOPT documentation
 xmul = []; 
 xstate = [];
 
-F_lb = [-inf; zeros(2*(N-1),1); repmat([-pi; -pi; -pi; -pi; -3; -3], N-1, 1); -pi; -pi; -pi; -pi];
-F_ub = [inf; zeros(2*(N-1),1); repmat([pi; pi; pi; pi; 3; 3], N-1, 1); pi; pi; pi; pi];
+F_lb = [-inf; ones(2*(N-1),1)*-1e-15; repmat([-pi; -pi; -pi; -pi; -3; -3], N-1, 1); -pi; -pi; -pi; -pi];
+F_ub = [inf; ones(2*(N-1),1)*1e-15; repmat([pi; pi; pi; pi; 3; 3], N-1, 1); pi; pi; pi; pi];
 Fmul = []; 
 Fstate = [];
 
