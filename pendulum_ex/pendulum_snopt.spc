@@ -3,5 +3,5 @@ Begin pendulum_snopt
    Major Print level           000001
 *                             (JFLXBT)
    Minor print level                1
-   Solution                        No
+   Solution                       Yes
 End pendulum_snopt

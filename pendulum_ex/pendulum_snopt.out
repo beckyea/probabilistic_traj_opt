@@ -1,3 +1,7 @@
+
+         ==============================
+         S N O P T  7.6.0    (Jan 2017)
+         ==============================
 1
  
 
@@ -9,7 +13,7 @@
          Major Print level           000001
       *                             (JFLXBT)
          Minor print level                1
-         Solution                        No
+         Solution                       Yes
       End pendulum_snopt
 1
  
@@ -21,8 +25,8 @@
  SNMEMA EXIT 100 -- finished successfully
  SNMEMA INFO 104 -- memory requirements estimated
 
- Nonzero derivs  Jij     10829
- Non-constant    Jij's   10819     Constant Jij's          10
+ Nonzero derivs  Jij      1061
+ Non-constant    Jij's    1051     Constant Jij's          10
 1
  
  SNJAC  EXIT 100 -- finished successfully
@@ -54,15 +58,15 @@
 
  Partial pricing
  ---------------
- LP Partial price.......         1       Prtl price section ( A)        90       Prtl price section (-I)       237
- QP Partial price.......         1       Prtl price section ( A)        90       Prtl price section (-I)       237
+ LP Partial price.......         1       Prtl price section ( A)        30       Prtl price section (-I)        77
+ QP Partial price.......         1       Prtl price section ( A)        30       Prtl price section (-I)        77
 
  The SQP Method
  --------------
  Minimize...............                 Cold start.............                 Proximal Point method..         1
- Nonlinear objectiv vars        90       Objective Row..........         1       Function precision.....  3.00E-13
- Unbounded step size....  1.00E+20       Superbasics limit......        90       Difference interval....  5.48E-07
- Unbounded objective....  1.00E+10       Reduced Hessian dim....        90       Central difference int.  6.70E-05
+ Nonlinear objectiv vars        26       Objective Row..........         1       Function precision.....  3.00E-13
+ Unbounded step size....  1.00E+20       Superbasics limit......        30       Difference interval....  5.48E-07
+ Unbounded objective....  1.00E+10       Reduced Hessian dim....        30       Central difference int.  6.70E-05
  Major step limit.......  2.00E+00       Nonderiv.  linesearch..                 Derivative option......         0
  Major iterations limit.       500       Linesearch tolerance...   0.90000       Verify level...........         0
  Minor iterations limit.       500       Penalty parameter......  0.00E+00       Major Print Level......         1
@@ -70,13 +74,13 @@
 
  Hessian Approximation
  ---------------------
- Hessian limited-memory.                 Hessian updates........        10       Hessian frequency......  99999999
+ Hessian full-memory....                 Hessian updates........  99999999       Hessian frequency......  99999999
                                                                                  Hessian flush..........  99999999
 
  Nonlinear constraints
  ---------------------
- Nonlinear constraints..       226       Major feasibility tol..  1.00E-06       Violation limit........  1.00E+01
- Nonlinear Jacobian vars        90
+ Nonlinear constraints..        66       Major feasibility tol..  1.00E-06       Violation limit........  1.00E+01
+ Nonlinear Jacobian vars        30
 
  Miscellaneous
  -------------
@@ -85,8 +89,8 @@
  LU partial  pivoting...                 eps (machine precision)  2.22E-16       System information.....        No
                                                                                  Sticky parameters......        No
 
- Total char*8  workspace       500       Total integer workspace    667001       Total real    workspace    519625
- Total char*8  (minimum)       500       Total integer (minimum)     50206       Total real    (minimum)     83398
+ Total char*8  workspace       500       Total integer workspace     91961       Total real    workspace     68700
+ Total char*8  (minimum)       500       Total integer (minimum)      6822       Total real    (minimum)     11625
  
 1
  
@@ -96,19 +100,19 @@
  Matrix statistics
  -----------------
                Total      Normal        Free       Fixed     Bounded
- Rows            237           0           1          58         178
- Columns          90           0          28           4          58
+ Rows             77           0           1          18          58
+ Columns          30           0           8           4          18
 
- No. of matrix elements                10739     Density      50.347
+ No. of matrix elements                 1035     Density      44.805
  Biggest  constant element        1.0000E+00  (excluding fixed columns,
  Smallest constant element        1.0000E+00   free rows, and RHS)
 
  No. of objective coefficients             0
 
- Nonlinear constraints     226     Linear constraints      11
- Nonlinear variables        90     Linear variables         0
- Jacobian  variables        90     Objective variables     90
- Total constraints         237     Total variables         90
+ Nonlinear constraints      66     Linear constraints      11
+ Nonlinear variables        30     Linear variables         0
+ Jacobian  variables        30     Objective variables     26
+ Total constraints          77     Total variables         30
 1
  
  Initial basis
@@ -130,52 +134,374 @@
  Itn      0: PP1.  Norm(x-x0) approximately minimized  (0.00E+00)
 
  
- The user has defined       0   out of   10819   first  derivatives
+ The user has defined       0   out of    1051   first  derivatives
 
  Crash on nonlinear rows:
- Slacks   151  Free cols    28  Preferred     0
- Unit      21  Double        0  Triangle      7  Pad    19
+ Slacks    44  Free cols     8  Preferred     0
+ Unit       0  Double        8  Triangle      0  Pad     6
 1
  
  Itn      0: Hessian set to a scaled identity matrix
- Itn     32: Infeasible QP subproblem
- Itn     32: Elastic Phase 1 -- making non-elastic variables feasible
- Itn     32: Infeasible subproblem. Elastic mode started with weight =  2.6E+08
+ Itn      3: Infeasible QP subproblem
+ Itn      3: Elastic Phase 1 -- making non-elastic variables feasible
+ Itn      3: Infeasible subproblem. Elastic mode started with weight =  2.8E+05
+ Itn     27: Elastic weight increased to   2.765E+06
+ Itn     31: Elastic weight increased to   2.765E+08
  
 
    Itns Major Minors    Step   nCon Feasible  Optimal  MeritFunction     L+U BSwap     nS condZHZ Penalty
-     38     0     38              1  1.3E+00  5.4E-02  6.1582227E+03    4246                              _  r i
- Itn     38: Hessian set to a scaled identity matrix
-     38     1      0 3.3E-01      2  1.3E+00  3.9E-02  2.5470656E+09    6384                      3.4E+08 _  rli
-     38     2      0 5.0E-01      3  1.3E+00  2.1E-02  3.1910924E+09    6753                      1.5E+09 _  rli
- Itn     38: Hessian set to a scaled identity matrix
-     44     3      6 1.0E+00      4  1.3E+00  1.7E-03  3.2926549E+09    7120                      2.7E+09 _  r i
- Itn     44 -- Central differences invoked.  Small reduced gradient.
-     44     3      6 1.0E+00      4  1.3E+00  1.7E-03  3.2926549E+09    8518                      2.7E+09 _  r i c
- Itn     44: Elastic weight increased to   2.574E+09
- Itn     44: Elastic weight increased to   2.574E+11
- Itn     44: Elastic weight increased to   2.574E+13
-     44     4      0 1.0E+00      5  1.3E+00 (2.5E-09) 3.2926454E+14    8478                      9.2E+04 _  r i c
+     35     0     35              1  1.0E+00  2.1E-06  9.0000000E-03     300     1                        _  r i
+ Itn     35: Hessian set to a scaled identity matrix
+     71     1     36 1.4E-02      2  1.0E+00  3.3E-06  6.5754356E+08     621            2 1.4E+02 1.8E+08 _  r i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn     71: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn     71: LU partial  pivoting tols       2.00      2.00
+     86     2     15 3.3E-01      4  9.7E-01  5.2E-02  8.2108322E+08     802     2                3.5E+08 _  rli
+ Itn     86: Hessian set to a scaled identity matrix
+ Itn     86: LU partial  pivoting tols       3.99      3.99
+    147     3     61 1.0E+00      6  1.2E+00  4.6E+05 -4.8407452E+08     958            6 4.7E+00 6.5E+08 _  r
+    155     4      8 3.4E-03      7  1.2E+00  1.0E+00  2.2877186E+08     937            9 1.1E+03 1.0E+08 _s   i
+    156     5      1 5.0E-01      8  5.3E-01  1.1E+00  2.3448168E+08     698     9      9 8.3E+00 1.2E+08 _    i
+    158     6      2 5.0E-01      9  1.9E-01  6.6E-01  1.9124427E+08     708            8 8.5E+01 1.4E+08 _    i
+    160     7      2 7.2E-01     10  3.8E-02  1.6E-01  1.1461958E+08     693            9 1.3E+02 1.4E+08 _    i
+    162     8      2 1.0E+00     11  2.9E-02  1.1E-01  3.9893689E+07     745            8 1.2E+01 3.3E+04 _    i
+    164     9      2 7.2E-01     13  8.1E-03  7.4E-02  1.7113820E+07     777            7 1.0E+01 9.1E+02 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    164: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    164: LU partial  pivoting tols       2.00      2.00
+    166    10      2 6.4E-01     14  3.0E-03  1.3E-02  6.4450441E+06     679     3      8 8.7E+00 1.7E+02 _    i
+ Itn    166: LU partial  pivoting tols       3.99      3.99
+    167    11      1 6.8E-01     15  2.0E-03  7.1E-03  3.7992289E+06     679            8 1.2E+01 8.9E+01 _    i
+    168    12      1 6.7E-01     16  1.9E-03  5.4E-03  2.8376278E+06     679            8 4.9E+01 8.9E+01 _    i
+    170    13      2 1.0E+00     17  3.1E-03  4.6E-02  2.1478712E+06     706            7 1.4E+01 8.9E+01 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    170: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    170: LU partial  pivoting tols       2.00      2.00
+    172    14      2 1.0E+00     18  1.8E-03  8.2E-03  2.2760517E+06     686     2      8 1.5E+01 1.1E+10 _    i
+ Itn    172: LU partial  pivoting tols       3.99      3.99
+    173    15      1 1.0E+00     19  1.5E-03  3.2E-03  1.9247128E+06     656            8 2.6E+01 4.4E+05 _    i
+    174    16      1 1.0E+00     20  1.4E-03  5.3E-03  1.8086584E+06     656            8 3.1E+01 4.6E+03 _    i
+    175    17      1 6.5E-01     21  1.4E-03  4.7E-03  1.7649949E+06     656            8 1.1E+02 6.5E+02 _    i
+    176    18      1 1.0E+00     22  1.0E-03  1.2E-02  1.2738617E+06     656            8 1.3E+02 4.0E+02 _    i
+    177    19      1 1.0E+00     23  5.7E-04  4.3E-03  7.1193508E+05     686            8 1.0E+02 4.0E+02 _    i
+
+   Itns Major Minors    Step   nCon Feasible  Optimal  MeritFunction     L+U BSwap     nS condZHZ Penalty
+    179    20      2 4.8E-01     24  1.4E-03  2.1E-02  5.1616581E+05     745            7 1.3E+02 4.0E+02 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    179: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    179: LU partial  pivoting tols       2.00      2.00
+    181    21      2 1.0E+00     25  2.7E-04  3.3E-03  3.3833503E+05     656     1      8 1.0E+02 4.0E+02 _    i
+ Itn    181: LU partial  pivoting tols       3.99      3.99
+    182    22      1 1.0E+00     26  2.4E-04  5.0E-03  2.9831488E+05     656            8 6.3E+01 4.0E+02 _    i
+    184    23      2 1.0E+00     27  1.8E-04  7.2E-03  2.2695341E+05     679            7 3.9E+01 4.0E+02 _
+    187    24      3 1.0E+00     28  7.4E-04  4.5E-03  1.1100703E+05     707     2      7 2.0E+04 4.0E+02 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    187: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    187: LU partial  pivoting tols       2.00      2.00
+    189    25      2 1.0E+00     29  1.4E-04  7.4E-03  1.6841019E+05     657     3      8 2.5E+01 9.0E+10 _    i
+ Itn    189: LU partial  pivoting tols       3.99      3.99
+    190    26      1 1.0E+00     30  1.2E-04  3.4E-03  1.5062858E+05     627            8 3.8E+01 2.5E+06 _    i
+    191    27      1 4.0E-01     31  1.2E-04  7.9E-04  1.4419354E+05     627            8 2.7E+01 2.0E+04 _    i
+    192    28      1 1.0E+00     32  1.2E-04  7.9E-04  1.4257767E+05     627            8 2.3E+01 2.5E+03 _    i
+    193    29      1 1.0E+00     33  1.1E-04  5.0E-04  1.4166145E+05     627            8 2.6E+01 1.6E+03 _    i
+    194    30      1 1.0E+00     34  1.1E-04  4.7E-04  1.4125361E+05     627            8 2.7E+01 1.6E+03 _    i
+    195    31      1 1.0E+00     35  1.1E-04  8.2E-04  1.3958909E+05     627            8 9.0E+01 1.6E+03 _    i
+    196    32      1 1.0E+00     36  1.1E-04  2.0E-03  1.3381612E+05     627            8 2.3E+02 1.6E+03 _    i
+    197    33      1 1.0E+00     37  1.0E-04  3.1E-03  1.2462764E+05     627            8 3.8E+02 1.6E+03 _    i
+    198    34      1 1.0E+00     38  1.8E-04  1.6E-03  1.1408843E+05     627            8 3.3E+02 1.6E+03 _    i
+    199    35      1 1.0E+00     39  9.1E-05  5.4E-04  1.1004439E+05     637     1      8 9.6E+01 1.6E+03 _    i
+    200    36      1 1.0E+00     40  9.0E-05  6.1E-04  1.0909253E+05     637            8 1.2E+02 1.6E+03 _    i
+    201    37      1 1.0E+00     41  8.8E-05  1.2E-03  1.0695562E+05     637            8 2.1E+02 1.6E+03 _    i
+    202    38      1 1.0E+00     42  8.4E-05  2.5E-03  1.0199030E+05     637            8 4.1E+02 1.6E+03 _    i
+    203    39      1 1.0E+00     43  1.7E-04  3.9E-03  9.1505525E+04     667            8 4.8E+02 1.6E+03 _    i
+
+   Itns Major Minors    Step   nCon Feasible  Optimal  MeritFunction     L+U BSwap     nS condZHZ Penalty
+    204    40      1 1.0E+00     44  6.6E-04  3.8E-03  7.4596929E+04     667            8 3.3E+02 1.6E+03 _    i
+    205    41      1 1.0E+00     45  5.9E-04  2.5E-03  5.8764960E+04     667            8 3.1E+02 1.6E+03 _    i
+    209    42      4 1.0E+00     47  1.1E-04  4.6E-04 -6.8275836E+04     715            7 8.9E+01 1.6E+03 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    209: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    209: LU partial  pivoting tols       2.00      2.00
+    211    43      2 1.0E+00     48  4.6E-05  1.5E-03  5.3430569E+04     655     2      8 2.8E+02 7.4E+11 _    i
+ Itn    211: LU partial  pivoting tols       3.99      3.99
+    212    44      1 1.2E-01     49  4.6E-05  4.5E-04  5.3068169E+04     654            8 2.1E+02 2.1E+07 _    i
+    213    45      1 1.0E+00     50  4.6E-05  6.9E-04  5.2877620E+04     654            8 2.9E+02 1.8E+05 _    i
+    214    46      1 1.0E+00     51  4.6E-05  1.3E-04  5.2792416E+04     654            8 3.0E+02 1.8E+04 _    i
+    215    47      1 1.0E+00     52  4.6E-05  4.4E-04  5.2644860E+04     654            8 3.3E+02 7.1E+03 _    i
+    216    48      1 1.0E+00     53  4.6E-05  1.7E-03  5.2197463E+04     654            8 6.4E+02 7.1E+03 _    i
+    217    49      1 1.0E+00     54  4.5E-05  3.6E-03  5.1249793E+04     654            8 1.9E+03 7.1E+03 _    i
+    218    50      1 1.0E+00     55  4.3E-05  6.4E-03  4.8972394E+04     654            8 4.4E+03 7.1E+03 _    i
+    219    51      1 1.0E+00     56  2.2E-04  1.0E-02  4.4070475E+04     654            8 8.3E+03 7.1E+03 _    i
+    220    52      1 1.0E+00     57  8.6E-04  1.2E-02  3.5551098E+04     654            8 1.1E+04 7.1E+03 _    i
+    221    53      1 1.0E+00     58  1.8E-03  7.7E-03  2.5947600E+04     623     1      8 1.9E+04 7.1E+03 _    i
+    222    54      1 1.0E+00     59  5.0E-04  3.8E-03  1.8510768E+04     623            8 1.6E+04 7.1E+03 _    i
+    224    55      2 1.0E+00     60  1.7E-03  7.5E-03  1.0278801E+04     634            7 4.6E+02 7.1E+03 _
+    227    56      3 3.8E-01     61  1.2E-03  5.1E-03  8.3498471E+03     633            8 2.8E+07 7.1E+03 _    i
+    233    57      6 1.0E+00     62  3.0E-04  1.2E-02  7.0987233E+03     685            7 4.0E+02 7.1E+03 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    233: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    233: LU partial  pivoting tols       2.00      2.00
+    235    58      2 1.0E+00     63  7.1E-05  9.1E-03  6.4498161E+03     626     2      8 6.4E+03 3.7E+08 _    i
+ Itn    235: LU partial  pivoting tols       3.99      3.99
+    237    59      2 3.7E-01     64  6.5E-05  2.1E-03  5.7958553E+03     635            7 1.1E+04 8.4E+05 _
+
+   Itns Major Minors    Step   nCon Feasible  Optimal  MeritFunction     L+U BSwap     nS condZHZ Penalty
+    240    60      3 1.0E+00     65  2.4E-04  1.6E-03  5.2782146E+03     633     1      8 4.0E+07 6.8E+04 _    i
+    242    61      2 1.0E+00     66  1.0E-04  7.0E-03  3.1638422E+03     697            7 8.9E+02 2.5E+04 _    i
+    247    62      5 1.7E-03     67  1.0E-04  1.1E-02  6.4734948E+04     667            7 9.8E+02 4.3E+11 _    i
+    250    63      3 3.3E-01     68  3.5E-04  2.1E-03  2.4152194E+03     669            7 9.2E+02 5.6E+07 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    250: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    250: LU partial  pivoting tols       2.00      2.00
+    252    64      2 1.0E+00     69  1.8E-03  8.2E-03  1.4838526E+03     624     2      8 6.3E+04 1.1E+06 _    i
+ Itn    252: LU partial  pivoting tols       3.99      3.99
+    254    65      2 1.0E+00     70  1.4E-04  6.0E-03  1.3000990E+03     697            7 3.9E+03 1.8E+05 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    254: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    254: LU partial  pivoting tols       2.00      2.00
+    256    66      2 1.0E+00     71  5.4E-05  1.2E-02  7.6230808E+02     626     2      8 4.5E+05 1.1E+05 _    i
+ Itn    256: LU partial  pivoting tols       3.99      3.99
+    257    67      1 3.1E-01     72  5.5E-05  7.7E-03  6.8849516E+02     626            8 8.4E+05 1.1E+05 _    i
+    258    68      1 1.0E+00     73  1.5E-04  6.7E-04  5.2690788E+02     626            8 1.8E+06 1.1E+05 _    i
+    259    69      1 1.0E+00     74  1.0E-03  8.7E-03  5.2992077E+02     656            8 1.9E+06 1.1E+05 _    i
+    263    70      4 1.0E+00     75  3.2E-05  1.1E-02  2.5694413E+02     671            7 3.6E+06 1.1E+05 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    263: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    263: LU partial  pivoting tols       2.00      2.00
+    265    71      2 1.0E+00     76  1.5E-04  1.6E-02  2.8796414E+02     625     1      8 2.4E+06 1.1E+05 _    i
+ Itn    265: LU partial  pivoting tols       3.99      3.99
+    266    72      1 1.0E+00     77  5.7E-06  2.2E-03  1.7195004E+02     625            8 2.8E+06 1.1E+05 _    i
+    270    73      4 1.0E+00     78  9.6E-05  9.9E-04  1.6386055E+02     699            7 5.7E+04 1.1E+05 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    270: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    270: LU partial  pivoting tols       2.00      2.00
+    272    74      2 1.0E+00     79  1.2E-04  1.4E-02  1.3259570E+02     625     1      8 6.5E+06 1.1E+05 _    i
+ Itn    272: LU partial  pivoting tols       3.99      3.99
+    273    75      1 1.0E+00     80  1.1E-04  1.5E-02  1.0862025E+02     624            8 8.8E+06 1.1E+05 _    i
+    277    76      4 1.0E+00     81  2.3E-05  7.6E-03  1.0159816E+02     670            7 1.3E+05 1.1E+05 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    277: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    277: LU partial  pivoting tols       2.00      2.00
+    279    77      2 1.0E+00     82  8.7E-05  4.4E-03  9.2647719E+01     655     1      8 9.7E+06 1.1E+05 _    i
+ Itn    279: LU partial  pivoting tols       3.99      3.99
+    280    78      1 1.0E+00     83  3.5E-05  4.1E-03  7.1187950E+01     624            8 1.0E+07 1.1E+05 _    i
+    281    79      1 1.0E+00     84  7.9E-05  4.9E-03  6.4092082E+01     624            8 2.1E+07 1.1E+05 _    i
+
+   Itns Major Minors    Step   nCon Feasible  Optimal  MeritFunction     L+U BSwap     nS condZHZ Penalty
+    283    80      2 1.0E+00     85  1.7E-04  3.8E-03  5.5981631E+01     668            7 4.5E+05 1.1E+05 _    i
+    284    81      1 8.0E-04     86  1.7E-04  4.1E-03  3.3023944E+03     670     1      7 4.8E+05 1.1E+10 _    i
+    287    82      3 8.7E-04     87  1.7E-04  4.9E-03  3.3024092E+03     669            7 9.0E+05 1.1E+10 _    i
+    292    83      5 7.5E-05     88  1.7E-04  4.3E-03  3.3024084E+03     668            7 7.3E+04 1.1E+10 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    292: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    292: LU partial  pivoting tols       2.00      2.00
+    294    84      2 1.0E+00     89  7.4E-06  4.1E-03  5.0372246E+01     625     1      8 1.4E+07 1.6E+07 _    i
+ Itn    294: LU partial  pivoting tols       3.99      3.99
+    295    85      1 1.0E+00     90  2.3E-05  1.9E-03  4.9660693E+01     624            8 4.1E+07 1.2E+06 _    i
+    296    86      1 1.0E+00     91  2.8E-05  3.1E-03  4.6340895E+01     625            8 1.0E+08 4.0E+05 _    i
+    297    87      1 1.0E+00     92  5.9E-04  8.0E-03  3.6909052E+01     654            8 7.7E+07 3.8E+05 _    i
+    298    88      1 1.0E+00     93  2.7E-05  1.7E-03  3.3790984E+01     625            8 1.4E+08 3.8E+05 _    i
+    300    89      2 1.0E+00     94  5.4E-04  5.1E-03  2.7938218E+01     610            7 3.0E+06 3.8E+05 _    i
+    302    90      2 1.0E+00     95  4.6E-05  2.5E-02  2.6489023E+01     649            6 3.7E+04 3.8E+05 _    i
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Singular(m>n)  rank       76  n-rank       1  nsing        1
+ Itn    302: BR factorize
+ Singular(m=n)  rank       76  n-rank       1  nsing        1
+ Itn    302: LU partial  pivoting tols       2.00      2.00
+    303    91      1 1.0E+00     96 (1.4E-08) 6.0E-03  2.4090883E+01     611     1      6 3.4E+05 3.8E+05 _    i
+ Itn    303: LU partial  pivoting tols       3.99      3.99
+    304    92      1 1.0E+00     97 (1.4E-08) 2.4E-03  2.4052013E+01     611            6 2.9E+05 3.8E+05 _    i
+    305    93      1 1.0E+00     98 (1.4E-08) 6.4E-04  2.4395741E+01     609            6 3.8E+05 3.8E+05 _    i
+    306    94      1 1.0E+00     99 (1.4E-08) 1.8E-04  6.4544435E+00     611            6 4.1E+05 3.8E+05 _    i
+ XXX  The search direction is uphill.  gMerit  =  7.4E-02
+ Search exit  8 -- uphill direction.   Major itn =     94
+ Itn    306 -- Central differences invoked. Small step length.
+    309    94      3             99 (1.4E-08) 4.8E-02  6.4544435E+00     668            6 2.1E+07 3.8E+05 _    i c
+ XXX  The search direction is uphill.  gMerit  =  7.5E-02
+ Search exit  8 -- uphill direction.   Major itn =     94
+ Itn    309: Hessian off-diagonals discarded
+ Itn    309: LU partial  pivoting tols       2.00      2.00
+    310    94      1             99 (1.4E-08) 4.8E-02  6.4544435E+00     667            6 2.7E+06         _  R i c
+ XXX  The search direction is uphill.  gMerit  =  7.4E-02
+ Search exit  8 -- uphill direction.   Major itn =     94
+ Itn    310: Hessian set to a scaled identity matrix
+ Itn    310: LU partial  pivoting tols       1.41      1.41
+ Itn    312: Elastic weight increased to   2.765E+10
+ Itn    312: LU partial  pivoting tols       1.19      1.19
+    312    94      2             99 (1.4E-08)(2.3E-10) 6.4544435E+00     675            5 1.5E+00         _  r i c
 1
  
- SNOPTA EXIT  10 -- the problem appears to be infeasible
- SNOPTA INFO  13 -- nonlinear infeasibilities minimized
+ SNOPTA EXIT   0 -- finished successfully
+ SNOPTA INFO   1 -- optimality conditions satisfied
 
  Problem name                 pendulum
- No. of iterations                  44   Objective            6.1349254955E+03
- No. of major iterations             4   Linear    obj. term  0.0000000000E+00
- Penalty parameter           9.202E+04   Nonlinear obj. term  6.1349254955E+03
- Elastic weight                2.6E+13   Elastic   objective  3.2926454047E+14
-                                         Elastic infeas       1.2792868743E+01
- User function calls (total)       739   Calls with modes 1,2 (known g)      5
- Calls for forward differencing    540   Calls for central differencing    180
- No. of degenerate steps             4   Percentage                       9.09
- Max x                      59 3.1E+00   Max pi                     29 2.6E+13
- Max Primal infeas         324 4.1E+00   Max Dual infeas            90 3.9E+00
- Nonlinear constraint violn    4.1E+00
+ No. of iterations                 312   Objective            6.5282483924E+00
+ No. of major iterations            94   Linear    obj. term  0.0000000000E+00
+ Penalty parameter           0.000E+00   Nonlinear obj. term  6.5282483924E+00
+ User function calls (total)      3436   Calls with modes 1,2 (known g)     99
+ Calls for forward differencing   3000   Calls for central differencing     30
+ No. of superbasics                  5   No. of basic nonlinears            20
+ No. of degenerate steps            39   Percentage                      12.50
+ Max x                      14 4.5E+00   Max pi                     45 2.8E+10
+ Max Primal infeas         104 6.5E-08   Max Dual infeas            30 1.3E+01
+ Nonlinear constraint violn    6.4E-08
+1
+ 
+ Name           pendulum                 Objective Value      6.5282483924E+00
+
+ Status         Optimal Soln             Iteration    312    Superbasics     5
+
+ Objective               (Min)
+ RHS
+ Ranges
+ Bounds
+
+ Section 1 - Constraints
+
+  Number  ...Row.. State  ...Value......  Slack Value...  ..Lower Limit.  ..Upper Limit.  .Dual Variable    ..i
+ 
+      31  r      1    BS          .               .                None            None         -1.0          1
+      32  r      2 A  EQ         0.00000         0.00000          .               .             -0.57047      2
+      33  r      3 A  EQ         0.00000         0.00000          .               .             -0.04784      3
+      34  r      4 A  EQ         0.00000         0.00000          .               .             -0.24006      4
+      35  r      5 A  EQ        -0.00000        -0.00000          .               .              0.06736      5
+      36  r      6 A  EQ         0.00000         0.00000          .               .              0.04695      6
+      37  r      7 A  EQ         0.00000         0.00000          .               .              0.05904      7
+      38  r      8 A  EQ        -0.00000        -0.00000          .               .              0.15791      8
+      39  r      9 A  EQ        -0.00000        -0.00000          .               .              0.02163      9
+      40  r     10 A  EQ        -0.00000        -0.00000          .               .              0.11534     10
+      41  r     11 A  EQ        -0.00000        -0.00000          .               .             -0.01400     11
+      42  r     12 A  EQ          .               .               .               .             -0.13303     12
+      43  r     13 A  EQ         0.00000         0.00000          .               .             -0.05911     13
+      44  r     14 A  EQ        -0.00000        -0.00000          .               .             -0.51433     14
+      45  r     15 A  EQ         0.00000         0.00000          .               .             -0.08450     15
+      46  r     16 A  EQ         0.00000         0.00000          .               .             -0.60249     16
+      47  r     17 A  EQ         0.00000         0.00000          .               .              0.01594     17
+      48  r     18 A  EQ        -0.00000        -0.00000          .               .              0.31457     18
+      49  r     19 A  EQ        -0.00000        -0.00000          .               .              0.37955     19
+      50  r     20    BS          .              3.14159        -3.14159         3.14159          .          20
+      51  r     21    BS          .              3.14159        -3.14159         3.14159          .          21
+      52  r     22    BS          .              3.14159        -3.14159         3.14159          .          22
+      53  r     23    BS          .              3.14159        -3.14159         3.14159          .          23
+      54  r     24    BS         0.12711        -2.87289        -3.00000         3.00000          .          24
+      55  r     25    BS         0.12711        -2.87289        -3.00000         3.00000          .          25
+      56  r     26    BS         0.00000        -3.14159        -3.14159         3.14159          .          26
+      57  r     27    BS         0.00000        -3.14159        -3.14159         3.14159          .          27
+      58  r     28    BS         0.00000        -3.14159        -3.14159         3.14159          .          28
+      59  r     29    BS         0.00000        -3.14159        -3.14159         3.14159          .          29
+      60  r     30    BS         0.09404        -2.90596        -3.00000         3.00000          .          30
+      61  r     31    BS         0.01243        -2.98757        -3.00000         3.00000          .          31
+      62  r     32    BS         0.03813        -3.10346        -3.14159         3.14159          .          32
+      63  r     33    BS         0.02542        -3.11617        -3.14159         3.14159          .          33
+      64  r     34    BS         0.03178        -3.10981        -3.14159         3.14159          .          34
+      65  r     35    BS         0.03178        -3.10981        -3.14159         3.14159          .          35
+      66  r     36    BS         0.01702        -2.98298        -3.00000         3.00000          .          36
+      67  r     37    BS        -0.01523         2.98477        -3.00000         3.00000          .          37
+      68  r     38    BS         0.08134        -3.06025        -3.14159         3.14159          .          38
+      69  r     39    BS         0.07238        -3.06921        -3.14159         3.14159          .          39
+      70  r     40    BS         0.07686        -3.06473        -3.14159         3.14159          .          40
+      71  r     41    BS         0.07686        -3.06473        -3.14159         3.14159          .          41
+      72  r     42    BS         0.00846        -2.99154        -3.00000         3.00000          .          42
+      73  r     43    BS        -0.00833         2.99167        -3.00000         3.00000          .          43
+      74  r     44    BS         0.04512        -3.09647        -3.14159         3.14159          .          44
+      75  r     45    BS         0.04338        -3.09821        -3.14159         3.14159          .          45
+      76  r     46    BS         0.04425        -3.09734        -3.14159         3.14159          .          46
+      77  r     47    BS         0.04425        -3.09734        -3.14159         3.14159          .          47
+      78  r     48    BS         0.00048        -2.99952        -3.00000         3.00000          .          48
+      79  r     49    BS        -0.00046         2.99954        -3.00000         3.00000          .          49
+      80  r     50    BS        -0.17660         2.96500        -3.14159         3.14159          .          50
+      81  r     51    BS        -0.17674         2.96485        -3.14159         3.14159          .          51
+      82  r     52    BS        -0.17667         2.96492        -3.14159         3.14159          .          52
+      83  r     53    BS        -0.17667         2.96492        -3.14159         3.14159          .          53
+      84  r     54    BS         0.00025        -2.99975        -3.00000         3.00000          .          54
+      85  r     55    BS        -0.00020         2.99980        -3.00000         3.00000          .          55
+      86  r     56    BS        -0.50607         2.63552        -3.14159         3.14159          .          56
+      87  r     57    BS        -0.50609         2.63551        -3.14159         3.14159          .          57
+      88  r     58    BS        -0.50608         2.63552        -3.14159         3.14159          .          58
+      89  r     59    BS        -0.50608         2.63552        -3.14159         3.14159          .          59
+      90  r     60    BS         0.00004        -2.99996        -3.00000         3.00000          .          60
+      91  r     61    BS        -0.00004         2.99996        -3.00000         3.00000          .          61
+      92  r     62    BS        -0.40445         2.73715        -3.14159         3.14159          .          62
+      93  r     63    BS        -0.40445         2.73714        -3.14159         3.14159          .          63
+      94  r     64    BS        -0.40445         2.73714        -3.14159         3.14159          .          64
+      95  r     65    BS        -0.40445         2.73714        -3.14159         3.14159          .          65
+      96  r     66    BS         0.00004        -2.99996        -3.00000         3.00000          .          66
+      97  r     67    BS        -0.00004         2.99996        -3.00000         3.00000          .          67
+      98  r     68    BS         0.88603        -2.25556        -3.14159         3.14159          .          68
+      99  r     69    BS         0.88602        -2.25557        -3.14159         3.14159          .          69
+     100  r     70    BS         0.88603        -2.25557        -3.14159         3.14159          .          70
+     101  r     71    BS         0.88603        -2.25557        -3.14159         3.14159          .          71
+     102  r     72    BS        -1.42373         1.57627        -3.00000         3.00000          .          72
+     103  r     73    BS        -1.42385         1.57615        -3.00000         3.00000          .          73
+     104  r     74 A  UL         3.14159         0.00000        -3.14159         3.14159         0.04786     74
+     105  r     75 D  BS         3.14159        -0.00000        -3.14159         3.14159          .          75
+     106  r     76    UL         3.14159          .             -3.14159         3.14159   -2.765045E+10     76
+     107  r     77 D  BS         3.14159          .             -3.14159         3.14159   -2.765045E+10     77
+1
+ 
+ Section 2 - Variables
+
+  Number  .Column. State  ...Value......  .Obj Gradient.  ..Lower Limit.  ..Upper Limit.  .Dual Variable    m+j
+ 
+       1  x      1 A  EQ          .               .               .               .             -0.33580     78
+       2  x      2 A  EQ          .               .               .               .             -0.33307     79
+       3  x      3    BS         0.00000          .             -3.14159         3.14159          .          80
+       4  x      4    BS         0.06356          .                None            None         -0.00483     81
+       5  x      5    BS         0.03178        -0.00000        -3.14159         3.14159        -0.00241     82
+       6  x      6    BS         0.09017         0.00005           None            None          0.01520     83
+       7  x      7    BS         0.07686         0.00000        -3.14159         3.14159         0.00518     84
+       8  x      8    BS        -0.06523         0.00014           None            None          0.04168     85
+       9  x      9    BS         0.04425        -0.00000        -3.14159         3.14159         0.02603     86
+      10  x     10    BS        -0.44184        -0.00001           None            None          0.02203     87
+      11  x     11    BS        -0.17667        -0.00000        -3.14159         3.14159         0.03704     88
+      12  x     12    BS        -0.65882         0.00001           None            None         -0.11162     89
+      13  x     13    BS        -0.50608         0.00000        -3.14159         3.14159        -0.01877     90
+      14  x     14    BS         0.20325         0.00000           None            None         -0.28256     91
+      15  x     15    BS        -0.40445         0.00000        -3.14159         3.14159        -0.16005     92
+      16  x     16    BS         2.58095         0.00000           None            None         -0.20080     93
+      17  x     17    BS         0.88603        -0.00000        -3.14159         3.14159        -0.26045     94
+      18  x     18    BS         4.51113         0.00000           None            None          0.52089     95
+      19  x     19    EQ         3.14159         0.00000         3.14159         3.14159    5.530090E+10     96
+      20  x     20 A  EQ          .             -0.00000          .               .             -0.37955     97
+      21  x     21    BS         0.12711         0.01426        -3.00000         3.00000        -0.00966     98
+      22  x     22    BS         0.05323         0.00638        -3.00000         3.00000         0.04006     99
+      23  x     23   SBS         0.00089        -0.00023        -3.00000         3.00000         0.02929    100
+      24  x     24   SBS         0.00006         0.00103        -3.00000         3.00000         0.01141    101
+      25  x     25    BS         0.00001         0.00585        -3.00000         3.00000        -0.01223    102
+      26  x     26   SBS         0.00002         0.05363        -3.00000         3.00000         0.01583    103
+      27  x     27   SBS        -0.00000         0.04490        -3.00000         3.00000         0.00251    104
+      28  x     28    BS        -0.00000        -0.00567        -3.00000         3.00000        -0.00001    105
+      29  x     29   SBS        -1.42379        -2.84758        -3.00000         3.00000        -2.65780    106
+      30  x     30 A  UL         0.50000        17.11434         0.00010         0.50000        12.99156    107
  
  Time for MPS input                             0.00 seconds
- Time for solving problem                       2.49 seconds
+ Time for solving problem                       5.05 seconds
  Time for solution output                       0.00 seconds
- Time for constraint functions                  2.43 seconds
+ Time for constraint functions                  4.91 seconds
  Time for objective function                    0.00 seconds
