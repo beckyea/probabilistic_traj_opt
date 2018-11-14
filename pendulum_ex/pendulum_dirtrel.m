@@ -21,9 +21,9 @@ u = ones(1*N-1, 1) * 0; % dimension of u * N
 u_lb = ones(1*N-1, 1) * -3;
 u_ub = ones(1*N-1, 1) * 3;
 
-h = 0.001; % time decision variable
-h_lb = 0.0001;
-h_ub = 0.5;
+h = 0.01; % time decision variable
+h_lb = 0.001;
+h_ub = 0.01;
 
 ObjAdd = 0;
 ObjRow = 1;

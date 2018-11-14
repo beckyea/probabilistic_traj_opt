@@ -31,7 +31,7 @@ end
 function [c] = cost(x, u, h)
 global Q R;
 dx = [x(1) - pi; x(2)];
-c = h;%dx'*Q*dx + u*R*u + h;
+c = dx'*Q*dx + u*R*u + h;
 end
 
 function [theta_fun, thetadot_fun] = f_h(x, u, h, x_ip1)
