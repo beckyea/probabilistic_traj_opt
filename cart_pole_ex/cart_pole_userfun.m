@@ -1,11 +1,17 @@
 function [F] = cart_pole_userfun(X)
 %PENDULUM_USERFUN Defines nonlinear part 
-global N Q R dof n_x;
+global N Q R n_u n_x;
 x = X(1:N*n_x);
 u = X(N*n_x+1:end-1);
 h = X(end);
-F = zeros(N*dof*8-3, 1);
+F = zeros(1 + n_x*(N-1) + 2*n_x*n_x*N + 2*n_u*n_u*(N-1), 1);
 [l, E, K] = cart_pole_lw(x, u, h, Q, R);
+n_c = 1;           % number of cost constraints
+n_d = n_x*(N-1); % number of dynamics constraints
+n_e_x = n_x*n_x*2; % number of ellipsoidal constraints on x
+n_e_u = n_u*n_u*2; % number of ellipsoidal constraints on u
+n_e = n_e_x+n_e_u; % number of ellipsoidal constraints
+
 F(1) = l;
 for i = 1:N
     x_i = X(n_x*(i-1)+1:n_x*i);
@@ -14,21 +20,29 @@ for i = 1:N
         u_i = u(i);
         F(1) = F(1) + cost(x_i, u_i, h);
         [theta_fun, thetadot_fun, y_fun, ydot_fun] = f_h(x_i, u_i, h, x_ip1);
-        F(2*dof*i-2) = theta_fun;
-        F(2*dof*i-1) = thetadot_fun;
-        F(2*dof*i) = y_fun;
-        F(2*dof*i+1) = ydot_fun;
-%         sqrt_KEK = sqrt(K{i}*E{i}*K{i}');
-%         %TODO adjust these indexes, not sure whats going on
-%         F(2*N-1+6*i-1) = u_i + sqrt_KEK;
-%         F(2*N-1+6*i) = u_i - sqrt_KEK; 
+        % Dynamics Constraints
+        F(n_c + n_x*i-3) = theta_fun;
+        F(n_c + n_x*i-2) = thetadot_fun;
+        F(n_c + n_x*i-1) = y_fun;
+        F(n_c + n_x*i)   = ydot_fun;
+        sqrt_KEK = sqrt(K{i}*E{i}*K{i}');
+        for j = 1:n_u
+            u_plus_col = u_i + sqrt_KEK(:, j);
+            u_minus_col = u_i - sqrt_KEK(:, j);
+        F(n_c + n_d + n_e*(i-1) + 2*n_x*n_x + 1 : n_c + n_d + n_e*(i-1) + 2*n_x*n_x + n_u) = u_plus_col;
+        F(n_c + n_d + n_e*(i-1) + 2*n_x*n_x + n_u + 1 : n_c + n_d + n_e*(i-1) + 2*n_x*n_x + 2*n_u) = u_minus_col;
+        %n_c + n_d + n_e*(i-1) + 2*n_x*n_x + 1 : n_c + n_d + n_e*(i-1) + 2*n_x*n_x + 2*n_u
+        end
+        
     end
-%     sqrt_E = sqrt(E{i});
-%     %TODO adjust these indexes, not sure whats going on
-%     F(2*N-1+6*i-5) = x_i(1) + sqrt_E(1,1);
-%     F(2*N-1+6*i-4) = x_i(1) - sqrt_E(1,1);
-%     F(2*N-1+6*i-3) = x_i(1) + sqrt_E(1,2);
-%     F(2*N-1+6*i-2) = x_i(1) - sqrt_E(1,2);
+    sqrt_E = sqrt(E{i});
+    for j = 1:n_x
+        x_plus_col = x_i + sqrt_E(:, j);
+        x_minus_col = x_i - sqrt_E(:, j);
+        F(n_c + n_d + n_e*(i-1) + 2*n_x*(j-1)+1 : n_c + n_d + n_e*(i-1) + 2*n_x*(j-1) + n_x) = x_plus_col;
+        F(n_c + n_d + n_e*(i-1) + 2*n_x*(j-1)+ n_x +1: n_c + n_d + n_e*(i-1) + 2*n_x*(j-1) + 2*n_x) = x_minus_col;
+        %n_c + n_d + n_e*(i-1) + 2*n_x*(j-1)+1 : n_c + n_d + n_e*(i-1) + 2*n_x*(j-1) + 2*n_x
+    end
 end
 end
 

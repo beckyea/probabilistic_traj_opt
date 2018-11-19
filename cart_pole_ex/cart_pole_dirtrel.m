@@ -6,7 +6,7 @@ cart_pole_globals();
 
 % Define State Variable (X)
 n = (n_u+n_x)*N; % size of state vector
-nF = 1 + n_x*(N-1) + 2*n_x*N + n_u*(N-1); % size of constraint vector
+nF = zeros(1 + n_x*(N-1) + 2*n_x*n_x*N + 2*n_u*n_u*(N-1), 1); % size of constraint vector
    % cost, dynamics, x ellipsoids, y ellipsoids
 
 x = zeros(n_x*N, 1); % dimension of x * N (ie 2*dof*N)
@@ -44,8 +44,12 @@ xmul = [];
 xstate = [];
 
 % Note: +/- 1e-15 used in leiu of 0 for floating point errors
-F_lb = [-inf; ones(n_x*(N-1),1)*-1e-15; repmat([x_const_lower; u_const_lower], N-1, 1); x_const_lower];
-F_ub = [inf; ones(n_x*(N-1),1)*1e-15; repmat([x_const_upper; u_const_upper], N-1, 1); x_const_upper];
+F_lb = [-inf; ones(n_x*(N-1),1)*-1e-15; ...
+    repmat([repmat(x_const_lower, n_x*2, 1); repmat(u_const_lower, n_u*2, 1)], N-1, 1);...
+    repmat(x_const_lower, n_x*2, 1)];
+F_ub = [inf; ones(n_x*(N-1),1)*1e-15; ...
+    repmat([repmat(x_const_upper, n_x*2, 1); repmat(u_const_upper, n_u*2, 1)], N-1, 1);...
+    repmat(x_const_upper, n_x*2, 1)];
 Fmul = []; 
 Fstate = [];
 
