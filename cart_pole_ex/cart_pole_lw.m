@@ -16,12 +16,18 @@ K = cell(N-1,1);
 H = cell(N,1);
 E = cell(N,1);
 E{1} = E1;
+%Note: we are doing a weird thing where we are setting u(N) = 0
+% because we need something for A{N}
 for i = 1:N
     theta_i = x(4*i-3);
     thetadot_i = x(4*i-2);
     y_i = x(4*i-1);
     ydot_i = x(4*i); 
-    u_i = u(i);
+    if i == N
+        u_i = 0;
+    else
+        u_i = u(i);
+    end
     
     dthdd_dth = (2*Mp*h*cos(theta_i)*sin(theta_i)*(L*Mp*cos(theta_i)*sin(theta_i)*thetadot_i^2 ...
         + u_i*cos(theta_i) + Mc*g*sin(theta_i) + Mp*g*sin(theta_i)))/(L*(- Mp*cos(theta_i)^2 ...
@@ -43,13 +49,13 @@ for i = 1:N
              dydd_dth,      dydd_dthd, 0, 1];
     
     B{i} = [                                          0;
-            -cos(theta)/(L*(Mc + Mp - Mp*cos(theta)^2));
+            -cos(theta_i)/(L*(Mc + Mp - Mp*cos(theta_i)^2));
                                                       0;
-                          1/(Mc + Mp - Mp*cos(theta)^2)];
+                          1/(Mc + Mp - Mp*cos(theta_i)^2)];
     
     if i ~= N
         %TODO
-        G{i} = [ 0 0; -h*u(i)/(L*L*m*m) 0]; %TODO - FIX THIS
+        G{i} = zeros(4,4); %TODO - FIX THIS
     end
 end
 P = cell(N,1);

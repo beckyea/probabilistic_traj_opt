@@ -1,30 +1,34 @@
 clear
 
 % Constants/Matrices inherent to the problem
-global N dof;
+global N n_x n_u;
 cart_pole_globals();
 
 % Define State Variable (X)
-n = 3*N; % size of state vector
-nF = 8*N-3; % size of constraint vector
+n = (n_u+n_x)*N; % size of state vector
+nF = 1 + n_x*(N-1) + 2*n_x*N + n_u*(N-1); % size of constraint vector
+   % cost, dynamics, x ellipsoids, y ellipsoids
 
-x = zeros(2*dof*N, 1); % dimension of x * N (ie 2*dof*N)
-x_lb = repmat([-pi; -inf; -10; -inf], N, 1);
-x_ub = repmat([pi; inf; 10; inf], N, 1);
+x = zeros(n_x*N, 1); % dimension of x * N (ie 2*dof*N)
+x_const_lower = [-pi; -inf; -2; -inf]; % state constraint lower bound
+x_const_upper = [ pi;  inf;  2;  inf]; % state constraint upper bound
+x_lb = repmat(x_const_lower, N, 1);
+x_ub = repmat(x_const_upper, N, 1);
 
-x(1) = 0; x_lb(1) = 0; x_ub(1) = 0;
-x(2) = 0; x_lb(2) = 0; x_ub(2) = 0;
-x(3) = 0; x_lb(3) = 0; x_ub(3) = 0;
-x(4) = 0; x_lb(4) = 0; x_up(4) = 0;
-
-x(end-1) = 1; x_lb(end-1) = 1; x_ub(end-1) = 1;
-x(end) = 0; x_lb(end) = 0; x_ub(end) = 0;
+x(1) = 0;      x_lb(1) = 0;      x_ub(1) = 0;
+x(2) = 0;      x_lb(2) = 0;      x_ub(2) = 0;
+x(3) = 0;      x_lb(3) = 0;      x_ub(3) = 0;
+x(4) = 0;      x_lb(4) = 0;      x_ub(4) = 0;
+%x(end-1) = 1;  x_lb(end-1) = 1;  x_ub(end-1) = 1;
+x(end) = 0;    x_lb(end) = 0;    x_ub(end) = 0;
 x(end-3) = pi; x_lb(end-3) = pi; x_ub(end-3) = pi;
-x(end-2) = 0; x_lb(end-2) = 0; x_ub(end-2) = 0;
+x(end-2) = 0;  x_lb(end-2) = 0;  x_ub(end-2) = 0;
 
-u = ones(1*N-1, 1) * 0; % dimension of u * N
-u_lb = ones(1*N-1, 1) * -1;
-u_ub = ones(1*N-1, 1) * 1;
+u = zeros(n_u*(N-1), 1); % dimension of u * N
+u_const_lower = -1; % u constraint lower bound
+u_const_upper = 1;  % u constraint upper bound
+u_lb = repmat(u_const_lower, n_u*(N-1), 1);
+u_ub = repmat(u_const_upper, n_u*(N-1), 1);
 
 h = 0.001; % time decision variable
 h_lb = 0.0001;
@@ -39,9 +43,9 @@ X_ub = [x_ub; u_ub; h_ub]; % xupp in SNOPT documentation
 xmul = []; 
 xstate = [];
 
-%TODO need to change this
-F_lb = [-inf; ones(2*(N-1),1)*-1e-15; repmat([-pi; -pi; -pi; -pi; -3; -3], N-1, 1); -pi; -pi; -pi; -pi];
-F_ub = [inf; ones(2*(N-1),1)*1e-15; repmat([pi; pi; pi; pi; 3; 3], N-1, 1); pi; pi; pi; pi];
+% Note: +/- 1e-15 used in leiu of 0 for floating point errors
+F_lb = [-inf; ones(n_x*(N-1),1)*-1e-15; repmat([x_const_lower; u_const_lower], N-1, 1); x_const_lower];
+F_ub = [inf; ones(n_x*(N-1),1)*1e-15; repmat([x_const_upper; u_const_upper], N-1, 1); x_const_upper];
 Fmul = []; 
 Fstate = [];
 
@@ -51,13 +55,13 @@ snscreen on;
 snprint('cart_pole_snopt.out');
 
 cart_pole_snopt.spc = which('cart_pole_snopt.spc');
-snspec(pendulum_snopt.spc);
+snspec(cart_pole_snopt.spc);
 
 options.name = 'cart_pole';
 snset ('Minimize');
 
 [X,F,INFO,xmul,Fmul,xstate,Fstate,output] = snopt (X, X_lb, X_ub, xmul, xstate,...
-                   F_lb, F_ub, Fmul, Fstate, @pendulum_userfun,...
+                   F_lb, F_ub, Fmul, Fstate, @cart_pole_userfun,...
                    ObjAdd, ObjRow, options);
 
 snprint off; % Closes the file and empties the print buffer
@@ -66,7 +70,6 @@ snend;
 % Plotting Purposes Only
 thetas = zeros(1,N);
 y_pos = zeros(1,N);
-% NEED TO PULL h FROM SNOPT OUTPUT?? 
 h = X(end);
 t = 0:h:h*(N-1);
 % thetas = X(1:4:4*dof*N);

@@ -1,16 +1,16 @@
 function [F] = cart_pole_userfun(X)
 %PENDULUM_USERFUN Defines nonlinear part 
-global N Q R dof;
-x = X(1:N*dof*2);
-u = X(N*dof*2+1:N*dof*3-1);
+global N Q R dof n_x;
+x = X(1:N*n_x);
+u = X(N*n_x+1:end-1);
 h = X(end);
 F = zeros(N*dof*8-3, 1);
-[l, E, K] = pendulum_lw(x, u, h, Q, R);
+[l, E, K] = cart_pole_lw(x, u, h, Q, R);
 F(1) = l;
 for i = 1:N
-    x_i = [x(2*dof*i-3) x(2*dof*i)];
+    x_i = X(n_x*(i-1)+1:n_x*i);
     if i ~= N
-        x_ip1 = [x(2*dof*i+1) x(2*dof*i+4)];
+        x_ip1 = X(n_x*i+1:n_x*(i+1));
         u_i = u(i);
         F(1) = F(1) + cost(x_i, u_i, h);
         [theta_fun, thetadot_fun, y_fun, ydot_fun] = f_h(x_i, u_i, h, x_ip1);
@@ -18,24 +18,25 @@ for i = 1:N
         F(2*dof*i-1) = thetadot_fun;
         F(2*dof*i) = y_fun;
         F(2*dof*i+1) = ydot_fun;
-        sqrt_KEK = sqrt(K{i}*E{i}*K{i}');
-        %TODO adjust these indexes, not sure whats going on
-        F(2*N-1+6*i-1) = u_i + sqrt_KEK;
-        F(2*N-1+6*i) = u_i - sqrt_KEK; 
+%         sqrt_KEK = sqrt(K{i}*E{i}*K{i}');
+%         %TODO adjust these indexes, not sure whats going on
+%         F(2*N-1+6*i-1) = u_i + sqrt_KEK;
+%         F(2*N-1+6*i) = u_i - sqrt_KEK; 
     end
-    sqrt_E = sqrt(E{i});
-    %TODO adjust these indexes, not sure whats going on
-    F(2*N-1+6*i-5) = x_i(1) + sqrt_E(1,1);
-    F(2*N-1+6*i-4) = x_i(1) - sqrt_E(1,1);
-    F(2*N-1+6*i-3) = x_i(1) + sqrt_E(1,2);
-    F(2*N-1+6*i-2) = x_i(1) - sqrt_E(1,2);
+%     sqrt_E = sqrt(E{i});
+%     %TODO adjust these indexes, not sure whats going on
+%     F(2*N-1+6*i-5) = x_i(1) + sqrt_E(1,1);
+%     F(2*N-1+6*i-4) = x_i(1) - sqrt_E(1,1);
+%     F(2*N-1+6*i-3) = x_i(1) + sqrt_E(1,2);
+%     F(2*N-1+6*i-2) = x_i(1) - sqrt_E(1,2);
 end
 end
 
 function [c] = cost(x, u, h)
 global Q R y_des;
 %TODO double check this
-dx = [x(1) - pi; x(2); x(3) - y_des; x(4)];
+% dx = [x(1) - pi; x(2); x(3) - y_des; x(4)];
+dx = [x(1) - pi; 0; 0; 0];
 c = dx'*Q*dx + u*R*u + h;
 end
 
