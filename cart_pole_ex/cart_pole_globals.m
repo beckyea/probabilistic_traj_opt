@@ -1,4 +1,4 @@
-global R Q Q_N E1 D N dof g m L Mp Mc y_des;
+global R Q Q_N E1 D N dof g m L Mp Mc y_des mu_k Nc_sign;
 
 R = 1;
 Q = [10  0 0 0;
@@ -18,5 +18,7 @@ y_des = 1;
 g = 9.81;
 m = 1; %pendulum mass
 L = 1;
-Mc = .8; %cart mass
-Mp = 1; %pend mass
+Mc = 1.2; %cart mass
+Mp = .4; %pend mass
+mu_k = 0.02; %coefficient of friction
+Nc_sign = 1;
