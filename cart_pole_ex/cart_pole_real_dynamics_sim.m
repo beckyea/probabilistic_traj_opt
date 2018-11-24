@@ -6,6 +6,7 @@ Nc_sign = 1; %set the sign positive to start
 tspan = [0, 10];
 x0 = [pi/3, 0, 0, 0];
 u = 0;
+% for j = 1:length(traj)
 [t, x] = ode45(@(t,x) compute_cart_pole_dyn(x, t, u), tspan, x0);
 
 %% plotting

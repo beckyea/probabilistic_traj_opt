@@ -2,7 +2,7 @@ function xdot = compute_cart_pole_dyn(x, t, u)
 %function to compute the continuous time dynamics of the cartpole for use
 %with ode45
 global Mp Mc g L mu_k Nc_sign 
-theta = x(1);
+theta =  - x(1);
 thetadot = x(2);
 y = x(3);
 ydot = x(4);
