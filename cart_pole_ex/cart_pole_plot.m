@@ -1,6 +1,6 @@
 function cart_pole_plot(t, th, y)
 
-figure(1)
+figure
 clf
 
 B = 2;

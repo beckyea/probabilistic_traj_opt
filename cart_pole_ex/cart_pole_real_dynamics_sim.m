@@ -10,9 +10,10 @@ tspan = [0, h];
 x0 = [0, 0, 0, 0]; %first initial condition
 allX = [];
 allT = [];
+u
 for j = 1:N-1
-    u = U(j);
-    [t, x] = ode45(@(t,x) compute_cart_pole_dyn(x, t, u), tspan, x0);
+    u_Curr = u(j);
+    [t, x] = ode45(@(t,x) compute_cart_pole_dyn(x, t, u_Curr), tspan, x0);
     x0 = x(end, :);
     tspan = [t(end), t(end) + h];
     allX = [allX; x];

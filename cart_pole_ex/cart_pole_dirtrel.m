@@ -60,7 +60,6 @@ snprint('cart_pole_snopt.out');
 
 cart_pole_snopt.spc = which('cart_pole_snopt.spc');
 snspec(cart_pole_snopt.spc);
-
 options.name = 'cart_pole';
 snset ('Minimize');
 
@@ -70,6 +69,8 @@ snset ('Minimize');
 
 snprint off; % Closes the file and empties the print buffer
 snend;
+
+u = X(N*n_x:end-1);
 
 % Plotting Purposes Only
 thetas = zeros(1,N);
