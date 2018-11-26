@@ -20,5 +20,5 @@ m = 1; %pendulum mass
 L = 1;
 Mc = 1.2; %cart mass
 Mp = .4; %pend mass
-mu_k = 0.02; %coefficient of friction
+mu_k = 0.0; %coefficient of friction
 Nc_sign = 1;
