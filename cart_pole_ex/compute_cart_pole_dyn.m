@@ -23,7 +23,7 @@ ydot = x(4);
 
 % new try with florian equations
 thetaddot_num = g*sin(theta) + cos(theta)*((-u - Mp*L*thetadot^2*(sin(theta) ...
-+ mu_k*sign(Nc_sign*ydot)*cos(theta)))/(Mc + Mp) + mu_k*g*sign(Nc_sign*ydot));
+                + mu_k*sign(Nc_sign*ydot)*cos(theta)))/(Mc + Mp) + mu_k*g*sign(Nc_sign*ydot));
 thetaddot_den = L*(4/3 - (Mp*cos(theta))/(Mc + Mp)*(cos(theta) - mu_k*sign(Nc_sign*ydot)));
 thetaddot = thetaddot_num/thetaddot_den;
 
