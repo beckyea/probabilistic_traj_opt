@@ -44,13 +44,13 @@ xmul = [];
 xstate = [];
 
 % Note: +/- 1e-15 used in leiu of 0 for floating point errors
-F_lb = [-inf; ones(n_x*(N-1),1)*-1e-15; ...
+F_lb = [-inf; ones(n_x*(N-1),1)*-1e-14; ...
     repmat([repmat(x_const_lower, n_x*2, 1); repmat(u_const_lower, n_u*2, 1)], N-1, 1);...
     repmat(x_const_lower, n_x*2, 1)];
-F_ub = [inf; ones(n_x*(N-1),1)*1e-15; ...
+F_ub = [inf; ones(n_x*(N-1),1)*1e-14; ...
     repmat([repmat(x_const_upper, n_x*2, 1); repmat(u_const_upper, n_u*2, 1)], N-1, 1);...
     repmat(x_const_upper, n_x*2, 1)];
-Fmul = []; 
+Fmul = [];
 Fstate = [];
 
 
@@ -70,7 +70,8 @@ snset ('Minimize');
 snprint off; % Closes the file and empties the print buffer
 snend;
 
-u = X(N*n_x:end-1);
+x = X(1:N*n_x);
+u = X(N*n_x+1:end-1);
 
 % Plotting Purposes Only
 thetas = zeros(1,N);

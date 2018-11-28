@@ -53,7 +53,7 @@ c = dx'*Q*dx + u*R*u + h;
 end
 
 function [theta_fun, thetadot_fun, y_fun, ydot_fun] = f_h(x_i, u_i, h, x_ip1)
-global g L Mp Mc
+    global g L Mp Mc;
     theta_i    = x_i(1);
     thetadot_i = x_i(2);
     y_i        = x_i(3);
@@ -64,16 +64,18 @@ global g L Mp Mc
     y_ip1        = x_ip1(3);
     ydot_ip1     = x_ip1(4);
     
-%     thetaddot_i = (L*Mp*cos(theta_i)*sin(theta_i)*thetadot_i^2 +...
-%         u*cos(theta_i) + Mc*g*sin(theta_i) + Mp*g*sin(theta_i))/...
+    
+%     thetaddot_i = -(L*Mp*cos(theta_i)*sin(theta_i)*thetadot_i^2 +...
+%         u_i*cos(theta_i) + Mc*g*sin(theta_i) + Mp*g*sin(theta_i))/...
 %         (L*(Mc + Mp - Mp*cos(theta_i)^2));
-%     yddot_i = (L*Mp*sin(theta_i)*thetadot_i^2 + u + ...
+%     yddot_i = (L*Mp*sin(theta_i)*thetadot_i^2 + u_i + ...
 %         Mp*g*cos(theta_i)*sin(theta_i))/(Mc + Mp - Mp*cos(theta_i)^2);
     
+
+    thetaddot_i = (-(Mp+Mc)*g*sin(theta_i)-cos(theta_i)*(u_i+Mp*L*thetadot_i^2*sin(theta_i)))/...
+        (L*(Mp+Mc)-Mp*L*cos(theta_i)*cos(theta_i));
     
-    thetaddot_i = (g*sin(theta_i)+cos(theta_i)*(-u_i-Mp*L*thetadot_i^2*sin(theta_i))/(Mc+Mp)) / ...
-        (L*(4/3-Mp*cos(theta_i)*cos(theta_i)/(Mp+Mc)));
-    yddot_i = (u_i + Mp*(thetadot_i^2*sin(theta_i)-thetaddot_i*cos(theta_i)))/(Mc+Mp);
+    yddot_i = (u_i + Mp*L*(thetadot_i^2*sin(theta_i)-thetaddot_i*cos(theta_i)))/(Mc+Mp);
     
     theta_fun    = theta_ip1    - (theta_i    + thetadot_i*h);
     thetadot_fun = thetadot_ip1 - (thetadot_i + thetaddot_i*h);

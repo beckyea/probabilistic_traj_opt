@@ -1,7 +1,7 @@
 function [l, E, K] = cart_pole_lw(x, u, h, Q_l, R_l)
 %PENDULUM_LW Robust Cost Function Described in Dirtrel Paper (Algorithm 1)
 
-global R Q Q_N E1 D N g m L Mp Mc;
+global R Q Q_N E1 D N g L Mp Mc;
 
 if N-1 ~= size(u)
     print("Size of X != Size of U+1")
@@ -48,46 +48,23 @@ for i = 1:N
 %                     0,              0, 1, h;
 %              dydd_dth,      dydd_dthd, 0, 1];
 
-    c_th = cos(theta_i);
-    s_th = sin(theta_i);
-    Mt = Mp+Mc;
+    A{i} = [ 1, h, 0, 0;
+        (2*Mp*h*cos(theta_i)*sin(theta_i)*(cos(theta_i)*(L*Mp*sin(theta_i)*thetadot_i^2 + u_i) + g*sin(theta_i)*(Mc + Mp)))/(L*(- Mp*cos(theta_i)^2 + Mc + Mp)^2) - (h*(g*cos(theta_i)*(Mc + Mp) - sin(theta_i)*(L*Mp*sin(theta_i)*thetadot_i^2 + u_i) + L*Mp*thetadot_i^2*cos(theta_i)^2))/(L*(Mc + Mp - Mp*cos(theta_i)^2)), 1 - (2*L*Mp*h*thetadot_i*cos(theta_i)*sin(theta_i))/(L*(Mc + Mp) - L*Mp*cos(theta_i)^2), 0, 0;
+        0, 0, 1, h;
+        (Mp*h*(Mc*g*cos(2*theta_i) - u_i*sin(2*theta_i) - (Mp*g)/2 + (Mp*g*cos(2*theta_i))/2 + (L*Mp*thetadot_i^2*cos(3*theta_i))/4 + L*Mc*thetadot_i^2*cos(theta_i) - (L*Mp*thetadot_i^2*cos(theta_i))/4))/(- Mp*cos(theta_i)^2 + Mc + Mp)^2, (2*L*Mp*h*thetadot_i*sin(theta_i))/(Mp*sin(theta_i)^2 + Mc), 0, 1];
 
-    A{i} = [1, h, 0, 0;
-           (-(h*(g*c_th+(s_th*(u_i+L*Mp*s_th))/Mt...
-           -(L*Mp*c_th^2)/Mt))/(L*((Mp*c_th^2)/Mt-4/3))...
-           -(2*Mp*h*c_th*s_th*(g*s_th-(c_th*(u_i+L*Mp*s_th))/Mt))/...
-           (L*((Mp*c_th^2)/Mt-4/3)^2*Mt)), 1, 0, 0;
-           0, 0, 1, h;
-           ((L*Mp*h*(thetadot_i^2*c_th-(s_th*(g*s_th-(c_th*(u_i+L*Mp*s_th))/Mt))...
-           /(L*((Mp*c_th^2)/Mt-4/3))+(c_th*(g*c_th+(s_th*(u_i+L*Mp*s_th))/Mt...
-           -(L*Mp*c_th^2)/Mt))/(L*((Mp*c_th^2)/Mt-4/3))+(2*Mp*c_th^2*s_th*...
-           (g*s_th-(c_th*(u_i+L*Mp*s_th))/Mt))/(L*((Mp*c_th^2)/Mt-4/3)^2*Mt)))/Mt), ...
-           ((2*L*Mp*h*thetadot_i*s_th)/Mt), 0, 1];
-       
-       B{i} = [0;
-              h*c_th/(L*((Mp*c_th^2)/Mt-4/3)*Mt);
-              0;
-              h*(8*Mc + 8*Mp)/(2*(Mc + Mp)*(4*Mc + 4*Mp - 3*Mp*c_th^2))];
-
-% B{i} = [                                          0;
-%             -cos(theta_i)/(L*(Mc + Mp - Mp*cos(theta_i)^2));
-%                                                       0;
-%                           1/(Mc + Mp - Mp*cos(theta_i)^2)];
+    B{i} = [                                              0;
+            -cos(theta_i)/(L*(Mc + Mp - Mp*cos(theta_i)^2));
+                                                          0;
+                            1/(Mc + Mp - Mp*cos(theta_i)^2)];
     
     if i ~= N
-        G{i} = [0, 0, 0, 0;
-                -(3*Mp*h*c_th*(4*L*Mc-3*u_i*c_th+...
-                4*L*Mp-3*L*Mp*c_th^2+3*Mc*g*s_th+...
-                3*Mp*g*s_th-3*L*Mp*c_th*s_th))/...
-                (L*(-3*Mp*c_th^2+4*Mc+4*Mp)^2), 0, 0, 0;
-                0, 0, 0, 0;
-                (h*(L*Mp*(c_th*thetadot_i^2+...
-                (s_th*(g*s_th-(c_th*(u_i+L*Mp*s_th))/...
-                Mt)*(3*Mc+3*Mp))/(L*(-3*Mp*c_th^2+4*Mc+4*Mp)))...
-                -g*Mt+(3*Mp^2*c_th^2*(4*L*Mc-3*u_i*c_th+...
-                4*L*Mp-3*L*Mp*c_th^2+3*Mc*g*s_th+3*Mp*g*s_th...
-                -3*L*Mp*c_th*s_th))/(-3*Mp*c_th^2+...
-                4*Mc+4*Mp)^2))/Mt, 0, 0, 0];
+        G{i} =  [
+                                         0, 0, 0, 0;
+ (h*cos(theta_i))/(L*(Mc+Mp)-L*Mp*cos(theta_i)^2), 0, 0, 0;
+                                         0, 0, 0, 0;
+             -h/(Mc + Mp - Mp*cos(theta_i)^2), 0, 0, 0];
+ 
     end
 end
 P = cell(N,1);

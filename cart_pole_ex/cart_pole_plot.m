@@ -1,8 +1,5 @@
 function cart_pole_plot(t, th, y)
 
-figure
-clf
-
 B = 2;
 xrange = [min(th) - B, max(th) + B];
 tic
