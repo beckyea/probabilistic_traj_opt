@@ -1,4 +1,4 @@
-global R Q Q_N E1 D N dof g L Mp Mc y_des mu_k Nc_sign;
+global R Q Q_N E1 D N dof g L Mp Mc mu_k Nc_sign;
 
 R = 1;
 Q = [10  0 0 0;
@@ -16,11 +16,9 @@ dof = 2;
 n_u = 1; % dimension of u
 n_x = 2*dof; % dimension of state vector
 
-y_des = 1;
-
 g = 9.81;
-Mp = 1; %pendulum mass
+Mp = 0.5; %pendulum mass
 L = 1;
-Mc = 1.2; %cart mass
+Mc = 0.5; %cart mass
 mu_k = 0.0; %coefficient of friction
 Nc_sign = 1;

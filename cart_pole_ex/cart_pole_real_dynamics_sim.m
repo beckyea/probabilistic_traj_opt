@@ -42,6 +42,7 @@ clf
 cart_pole_plot(allT, thetas, ys)
 
 figure(3)
+clf
 subplot(5,1,1)
 hold on
 plot(0:h:h*N-h, dirtrel_thetas)
@@ -63,7 +64,7 @@ hold off
 subplot(5,1,4)
 hold on
 plot(0:h:h*N-h, dirtrel_ydots)
-plot(allT, ys)
+plot(allT, ydots)
 legend('$\dot{y}_{dirtrel}$','$\dot{y}_{dyn}$', 'Interpreter','latex');
 hold off
 subplot(5,1,5)

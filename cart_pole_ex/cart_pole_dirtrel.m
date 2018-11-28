@@ -25,14 +25,14 @@ x(end-3) = pi; x_lb(end-3) = pi; x_ub(end-3) = pi;
 x(end-2) = 0;  x_lb(end-2) = 0;  x_ub(end-2) = 0;
 
 u = zeros(n_u*(N-1), 1); % dimension of u * N
-u_const_lower = -1.1; % u constraint lower bound
-u_const_upper = 1.1;  % u constraint upper bound
+u_const_lower = -6; % u constraint lower bound
+u_const_upper = 6;  % u constraint upper bound
 u_lb = repmat(u_const_lower, n_u*(N-1), 1);
 u_ub = repmat(u_const_upper, n_u*(N-1), 1);
 
 h = 0.001; % time decision variable
 h_lb = 0.0001;
-h_ub = 0.05;
+h_ub = 0.1;
 
 ObjAdd = 0;
 ObjRow = 1;
@@ -44,10 +44,10 @@ xmul = [];
 xstate = [];
 
 % Note: +/- 1e-15 used in leiu of 0 for floating point errors
-F_lb = [-inf; ones(n_x*(N-1),1)*-1e-14; ...
+F_lb = [-inf; ones(n_x*(N-1),1)*1e-20; ...
     repmat([repmat(x_const_lower, n_x*2, 1); repmat(u_const_lower, n_u*2, 1)], N-1, 1);...
     repmat(x_const_lower, n_x*2, 1)];
-F_ub = [inf; ones(n_x*(N-1),1)*1e-14; ...
+F_ub = [inf; ones(n_x*(N-1),1)*1e-20; ...
     repmat([repmat(x_const_upper, n_x*2, 1); repmat(u_const_upper, n_u*2, 1)], N-1, 1);...
     repmat(x_const_upper, n_x*2, 1)];
 Fmul = [];

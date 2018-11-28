@@ -26,25 +26,32 @@ ydot = x(4);
 %                 + mu_k*sign(Nc_sign*ydot)*cos(theta)))/(Mc + Mp) + mu_k*g*sign(Nc_sign*ydot));
 % thetaddot_den = L*(4/3 - (Mp*cos(theta))/(Mc + Mp)*(cos(theta) - mu_k*sign(Nc_sign*ydot)));
 % thetaddot = thetaddot_num/thetaddot_den;
-S = Nc_sign*sign(ydot);
-thetaddot_num = -(Mp+Mc)*g*sin(theta)-u*cos(theta)-Mp*L*thetadot^2*sin(theta) + ...
-    mu_k*S*((Mp+Mc)*cos(theta)+Mp*L*thetadot^2*cos(theta));
-thetaddot_den = L*(Mp+Mc-Mp*cos(theta)^2+Mp*sin(theta)*cos(theta)*mu_k*S);
-thetaddot = thetaddot_num/thetaddot_den;
 
-Nc = (Mc+Mp)*g + Mp*L*(thetaddot*sin(theta) + thetadot^2*cos(theta));
 
-if sign(Nc) ~= Nc_sign
-    %recompute thetaddot
-    Nc_sign = sign(Nc);
-    S = Nc_sign*sign(ydot);
-    thetaddot_num = -(Mp+Mc)*g*sin(theta)-u*cos(theta)-Mp*L*thetadot^2*sin(theta) + ...
-        mu_k*S*((Mp+Mc)*cos(theta)+Mp*L*thetadot^2*cos(theta));
-    thetaddot_den = L*(Mp+Mc-Mp*cos(theta)^2+Mp*sin(theta)*cos(theta)*mu_k*S);
-    thetaddot = thetaddot_num/thetaddot_den;
-end
-Nc = (Mc+Mp)*g + Mp*L*(thetaddot*sin(theta)+thetadot^2*cos(theta));
-
+% S = Nc_sign*sign(ydot);
+% thetaddot_num = -(Mp+Mc)*g*sin(theta)-u*cos(theta)-Mp*L*thetadot^2*sin(theta) + ...
+%     mu_k*S*((Mp+Mc)*cos(theta)+Mp*L*thetadot^2*cos(theta));
+% thetaddot_den = L*(Mp+Mc-Mp*cos(theta)^2+Mp*sin(theta)*cos(theta)*mu_k*S);
+% thetaddot = thetaddot_num/thetaddot_den;
+% 
+% 
+% Nc = (Mc+Mp)*g + Mp*L*(thetaddot*sin(theta) + thetadot^2*cos(theta));
+% 
+% if sign(Nc) ~= Nc_sign
+%     %recompute thetaddot
+%     Nc_sign = sign(Nc);
+%     S = Nc_sign*sign(ydot);
+%     thetaddot_num = -(Mp+Mc)*g*sin(theta)-u*cos(theta)-Mp*L*thetadot^2*sin(theta) + ...
+%         mu_k*S*((Mp+Mc)*cos(theta)+Mp*L*thetadot^2*cos(theta));
+%     thetaddot_den = L*(Mp+Mc-Mp*cos(theta)^2+Mp*sin(theta)*cos(theta)*mu_k*S);
+%     thetaddot = thetaddot_num/thetaddot_den;
+% end
+% Nc = (Mc+Mp)*g + Mp*L*(thetaddot*sin(theta)+thetadot^2*cos(theta));
+thetaddot = (-(Mp+Mc)*g*sin(theta)-cos(theta)*(u+Mp*L*thetadot^2*sin(theta)))/...
+        (L*(Mp+Mc)-Mp*L*cos(theta)*cos(theta));
+% 
+% yddot = (u + Mp*L*(thetadot^2*sin(theta)-thetaddot*cos(theta)))/(Mc+Mp);
+Nc = 0; S = 0;
 yddot = (u-mu_k*Nc*S+Mp*L*(thetadot^2*sin(theta)-thetaddot*cos(theta)))/(Mc+Mp);
 
 xdot = [thetadot; thetaddot; ydot; yddot];

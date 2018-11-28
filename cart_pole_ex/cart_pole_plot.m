@@ -32,7 +32,7 @@ while i<=numel(t)
         'Curvature',[1,1], 'FaceColor',[0, 0.7, 0.8],'EdgeColor','k','LineWidth',1);
     plot(py(1:i), pz(1:i), 'g','LineWidth',1);
     axis equal;
-    xlim([-1.5 1.5]);
+    xlim([-2.5 2.5]);
     ylim([-1.5 1.5]);
     xlabel('y');
     ylabel('z');
