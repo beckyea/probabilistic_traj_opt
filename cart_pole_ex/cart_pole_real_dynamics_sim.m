@@ -29,6 +29,8 @@ for j = 1:N-1
     allT = [allT; t];
 end
 % [t, x] = ode45(@(t,x) compute_cart_pole_dyn(x, t, 0), tspan, x0);
+
+
 %% plotting
 thetas = allX(:,1);
 thetadots = allX(:,2);
