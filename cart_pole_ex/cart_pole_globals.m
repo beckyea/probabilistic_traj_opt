@@ -10,7 +10,8 @@ E1 = [0  0 0 0;
       0  0 0 0;
       0  0 0 0;
       0  0 0 0];
-D = 0;
+
+D = 4;
 N = 50; % NUMBER OF KNOT POINTS
 dof = 2;
 n_u = 1; % dimension of u

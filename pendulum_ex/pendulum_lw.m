@@ -22,7 +22,7 @@ for i = 1:N
     A{i} = [ 1 h; (-g/L*cos(theta_i)*h) 1 ];
     B{i} = [ 0; h/(m*L*L) ];
     if i ~= N
-        G{i} = [ 0 0; -h*u(i)/(L*L*m*m) 0]; %TODO - FIX THIS
+        G{i} = [ 0 0; -h*u(i)/(L*L*m*m) 0];
     end
 end
 P = cell(N,1);

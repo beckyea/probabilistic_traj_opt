@@ -27,7 +27,6 @@ ydot = x(4);
 % thetaddot_den = L*(4/3 - (Mp*cos(theta))/(Mc + Mp)*(cos(theta) - mu_k*sign(Nc_sign*ydot)));
 % thetaddot = thetaddot_num/thetaddot_den;
 
-
 % S = Nc_sign*sign(ydot);
 % thetaddot_num = -(Mp+Mc)*g*sin(theta)-u*cos(theta)-Mp*L*thetadot^2*sin(theta) + ...
 %     mu_k*S*((Mp+Mc)*cos(theta)+Mp*L*thetadot^2*cos(theta));
