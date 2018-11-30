@@ -8,19 +8,17 @@ allX = [];
 allT = [];
 
 %calculate all the gains a functions of state
-K = cell(1,N);
-for i = 1:N-1
-    A = A_fun([dirtrel_thetas(i+1); dirtrel_thetadots(i+1); dirtrel_ys(i+1); dirtrel_ydots(i+1)], dirtrel_u(i));
-    B = B_fun([dirtrel_thetas(i+1); dirtrel_thetadots(i+1); dirtrel_ys(i+1); dirtrel_ydots(i+1)], dirtrel_u(i));
-    K{i} = lqr(A, B, Q, R);
-end
+dirtrelX = [dirtrel_thetas, dirtrel_thetadots, dirtrel_ys, dirtrel_ydots];
+% K = cell(1,N);
+% for i = 1:N-1
+%     A = A_fun([dirtrel_thetas(i); dirtrel_thetadots(i); dirtrel_ys(i); dirtrel_ydots(i)], dirtrel_u(i));
+%     B = B_fun([dirtrel_thetas(i); dirtrel_thetadots(i); dirtrel_ys(i); dirtrel_ydots(i)], dirtrel_u(i));
+%     K{i} = lqr(A, B, Q, R);
+% end
 
 for j = 1:N-1
-    u_Curr = u(j);
-    K_curr = K{i};
-    xd = [dirtrel_thetas(i+1); dirtrel_thetadots(i+1); dirtrel_ys(i+1); dirtrel_ydots(i+1)];
-    ud = dirtrel_u(i);
-    [t, x] = ode45(@(t,x) dynamics2(x, t, K_curr, xd, ud), tspan, x0);
+    ud = dirtrel_u(j);
+    [t, x] = ode45(@(t,x) dynamics2(x, t, dirtrelX, ud, j, Q, R), tspan, x0);
     x0 = x(end, :);
     tspan = [t(end), t(end) + h];
     allX = [allX; x];
@@ -39,13 +37,21 @@ figure(2)
 clf
 cart_pole_plot(allT, thetas, ys)
 
-function xdot = dynamics2(x, t, K_curr, x_d, u_d)
+function xdot = dynamics2(x, t, dirtrelX, u_d, j, Q, R)
 global Mp Mc g L mu_k  
 theta =  x(1);
 thetadot = x(2);
 y = x(3);
 ydot = x(4);
-u = K_curr*(x-x_d) + u_d;
+epsilon = (x' - dirtrelX(j,:)) ./ (dirtrelX(j+1, :) - dirtrelX(j, :));
+epsilon(isnan(epsilon)) = 1;
+epsilon(isinf(epsilon)) = 0;
+x_interp = epsilon.*dirtrelX(j,:) + (1-epsilon).*dirtrelX(j+1, :);
+%calculate K for this timestep
+A = A_fun(x_interp, u_d);
+B = B_fun(x_interp, u_d);
+K = lqr(A,B,Q,R);
+u = K*(x-x_interp') + u_d;
 thetaddot = (-(Mp+Mc)*g*sin(theta)-cos(theta)*(u+Mp*L*thetadot^2*sin(theta)))/...
         (L*(Mp+Mc)-Mp*L*cos(theta)*cos(theta));
 % 
