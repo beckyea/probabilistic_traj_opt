@@ -11,8 +11,8 @@ E1 = [0  0 0 0;
       0  0 0 0;
       0  0 0 0];
 
-D = 4;
-N = 50; % NUMBER OF KNOT POINTS
+D = 0.04;
+N = 100; % NUMBER OF KNOT POINTS
 dof = 2;
 n_u = 1; % dimension of u
 n_x = 2*dof; % dimension of state vector

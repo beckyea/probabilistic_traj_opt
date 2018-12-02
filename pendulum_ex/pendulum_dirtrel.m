@@ -71,9 +71,18 @@ x = X(1:N*n_x);
 u = X(N*n_x+1:end-1);
 
 % Plotting Purposes Only
-thetas = zeros(1,N);
+dirtrel_thetas = zeros(N,1);
 t = 0:h:h*(N-1);
 for i = 1:N
-    thetas(i) = X(2*i-1);
+    dirtrel_thetas(i) = X(2*i-1);
 end
-pendulum_plot(t,thetas, u)
+%%
+dirtrel_thetadots = zeros(N,1);
+for i = 1:N
+    dirtrel_thetadots(i) = X(2*i);
+end
+dirtrel_u = zeros(N-1,1);
+for i = 1:N-1
+    dirtrel_u(i) = X(2*N+i);
+end
+pendulum_plot(t,dirtrel_thetas, u)

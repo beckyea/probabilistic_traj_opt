@@ -25,8 +25,8 @@ x(end-3) = pi; x_lb(end-3) = pi; x_ub(end-3) = pi;
 x(end-2) = 0;  x_lb(end-2) = 0;  x_ub(end-2) = 0;
 
 u = zeros(n_u*(N-1), 1); % dimension of u * N
-u_const_lower = -6; % u constraint lower bound
-u_const_upper = 6;  % u constraint upper bound
+u_const_lower = -10; % u constraint lower bound
+u_const_upper = 10;  % u constraint upper bound
 u_lb = repmat(u_const_lower, n_u*(N-1), 1);
 u_ub = repmat(u_const_upper, n_u*(N-1), 1);
 
@@ -85,4 +85,4 @@ for i = 1:N
     thetas(i) = X(4*i-3);
     y_pos(i) = X(4*i-1);
 end
-cart_pole_plot(t,thetas,y_pos)
+cart_pole_plot(t,thetas,y_pos, u)

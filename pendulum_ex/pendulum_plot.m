@@ -1,6 +1,6 @@
 function pendulum_plot(t, th, u)
 
-figure(1)
+figure
 clf
 set(gcf,'color','white')
 
@@ -43,17 +43,17 @@ while i<=numel(t)
     titl = sprintf('Trajectory t =  %.2f',t(i));
     title(titl);
     
-    subplot(2,1,2)
-    if i< N
-        plot(t(1:i), u(1:i), 'Color', blue, 'LineWidth', 1.25)
-    else
-        plot(t, [u; 0], 'Color', blue, 'LineWidth', 1.25)
-    end
-    title('Control');
-    ylabel('u')
-    xlabel('t')
-    ylim([-max(-min(u),max(u)) max(-min(u),max(u))]);
-    xlim([min(t) max(t)]);
+%     subplot(2,1,2)
+%     if i< N
+%         plot(t(1:i), u(1:i), 'Color', blue, 'LineWidth', 1.25)
+%     else
+%         plot(t, [u; 0], 'Color', blue, 'LineWidth', 1.25)
+%     end
+%     title('Control');
+%     ylabel('u')
+%     xlabel('t')
+%     ylim([-max(-min(u),max(u)) max(-min(u),max(u))]);
+%     xlim([min(t) max(t)]);
 
     
     compu = toc - start;
