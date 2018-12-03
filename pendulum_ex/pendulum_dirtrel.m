@@ -21,8 +21,8 @@ x(end-1) = pi; x_lb(end-1) = pi; x_ub(end-1) = pi;
 x(end) = 0;    x_lb(end) = 0;    x_ub(end) = 0;
 
 u = zeros(n_u*(N-1), 1); % dimension of u * N
-u_const_lower = -3; % u constraint lower bound
-u_const_upper = 3;  % u constraint upper bound
+u_const_lower = -2; % u constraint lower bound
+u_const_upper = 2;  % u constraint upper bound
 u_lb = repmat(u_const_lower, n_u*(N-1), 1);
 u_ub = repmat(u_const_upper, n_u*(N-1), 1);
 

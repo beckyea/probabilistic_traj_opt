@@ -49,7 +49,7 @@ global Q R
 %TODO double check this
 % dx = [x(1) - pi; x(2); x(3) - y_des; x(4)];
 dx = [x(1) - pi; 0; 0; 0];
-c = dx'*Q*dx + u*R*u + h;
+c = dx'*dx + 0.1*u*u;
 end
 
 function [theta_fun, thetadot_fun, y_fun, ydot_fun] = f_h(x_i, u_i, h, x_ip1)

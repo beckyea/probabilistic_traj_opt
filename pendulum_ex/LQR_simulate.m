@@ -1,4 +1,4 @@
-x_e0 = 0;
+x_e0 = [0 0];
 
 global Q_N thetas thetadots us dt N 
 pendulum_globals();
@@ -18,8 +18,8 @@ t = tf - t;
 t = flip(t);
 Lmat = flipud(Lmat);
 Lmat = spline(t,Lmat');
-
-[t, x] = ode45(@(t,x) f(x, feedback(t, x, ppval(Lmat, t))), [0 tf], LQR_x_d(0) + x_e0);
+disp('ODE call');
+[t, x] = ode45(@(t,x) f(x, feedback(t, x, ppval(Lmat, t))), [0 tf], LQR_x_d(0), opts);
 
 % get Us from ODE call
 % u = zeros(size(t,1)-1,1);
@@ -45,7 +45,15 @@ function u = feedback(t, x, Lmat)
     Lsq = reshape(Lmat,[2 2]);
     S = Lsq*Lsq';
     u = LQR_u_d(t);
+    disp('Feedback');
+    x_d = LQR_x_d(t)';
+    x_e = (x-LQR_x_d(t))';
+
     u_e = -inv(R)*B'*S*(x-LQR_x_d(t));
+
+    disp("x: [" + x(1) + " " + x(2) + "]"  + " x_d: [" + x_d(1) + " " + x_d(2) + "]" + " x_e: [" + x_e(1) + " " + x_e(2) + "]");
+
+    disp("u: " + u + " u_e: " + u_e + " new_u:" + (u+u_e));
     u = u + u_e;
 end
 
@@ -55,4 +63,7 @@ thetadot = xs(2);
 u = us(1);
 global m g L
 xdot = [thetadot; -g/L*sin(theta)+u/(m*L*L)];
+disp("theta: " + theta + " thetadot: " + thetadot + " u: " + u)
+disp("thetad: " + xdot(1) + " thetadotd: " + xdot(2))
+
 end

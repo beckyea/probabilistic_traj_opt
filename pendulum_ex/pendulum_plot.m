@@ -1,6 +1,6 @@
 function pendulum_plot(t, th, u)
 
-figure
+figure(1)
 clf
 set(gcf,'color','white')
 

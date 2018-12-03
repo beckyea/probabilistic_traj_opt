@@ -41,10 +41,12 @@ ydots = allX(:,4);
 % allT = t;
 figure(2)
 clf
-cart_pole_plot(allT, thetas, ys)
+cart_pole_plot(allT, thetas, ys, [zeros(size(allT,1)-2,1); 1])
 
 figure(3)
 clf
+set(gcf,'color','white')
+
 subplot(5,1,1)
 hold on
 plot(0:h:h*N-h, dirtrel_thetas)

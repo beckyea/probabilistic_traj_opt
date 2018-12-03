@@ -1,4 +1,5 @@
 function [dL] = LQR_Ldot(t, Lmat)
+disp('Ldot');
 x = LQR_x_d(t);
 u = LQR_u_d(t);
 
@@ -6,7 +7,7 @@ theta = x(1);
 
 global m L g Q R
 
-A = [0 1; -g*cos(theta) 0];
+A = [0 1; -g*cos(theta)/L 0];
 
 B = [0; 1/(m*L*L)];
 

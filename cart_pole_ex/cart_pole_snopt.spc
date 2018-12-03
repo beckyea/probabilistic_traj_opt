@@ -1,5 +1,5 @@
 Begin cart_pole_snopt
-   Major iterations               700
+   Major iterations               500
    Major Print level            00001
 *                             (JFLXBT)
    Minor print level                1
