@@ -11,15 +11,16 @@ E1 = [0  0 0 0;
       0  0 0 0;
       0  0 0 0];
 
-D = 1;
-N = 50; % NUMBER OF KNOT POINTS
+D = 0.1;
+N = 100; % NUMBER OF KNOT POINTS
 dof = 2;
 n_u = 1; % dimension of u
 n_x = 2*dof; % dimension of state vector
+n_c = 1;
 
 g = 9.81;
-Mp = 0.2; %pendulum mass
+Mp = 0.5; %pendulum mass
 L = 0.5;
-Mc = 0.8; %cart mass
+Mc = 1; %cart mass
 mu_k = 0.0; %coefficient of friction
 Nc_sign = 1;

@@ -1,7 +1,7 @@
 clear
 
 % Constants/Matrices inherent to the problem
-global N n_x n_u;
+global N n_x n_u nF;
 cart_pole_globals();
 
 % Define State Variable (X)
@@ -25,8 +25,8 @@ x(end-3) = pi; x_lb(end-3) = pi; x_ub(end-3) = pi;
 x(end-2) = 0;  x_lb(end-2) = 0;  x_ub(end-2) = 0;
 
 u = zeros(n_u*(N-1), 1); % dimension of u * N
-u_const_lower = -30; % u constraint lower bound
-u_const_upper = 30;  % u constraint upper bound
+u_const_lower = -10; % u constraint lower bound
+u_const_upper = 10;  % u constraint upper bound
 u_lb = repmat(u_const_lower, n_u*(N-1), 1);
 u_ub = repmat(u_const_upper, n_u*(N-1), 1);
 
@@ -37,11 +37,21 @@ h_ub = 0.1;
 ObjAdd = 0;
 ObjRow = 1;
 
+[A1, iAfun1, jAvar1, iGfun1, jGvar1] = cart_pole_const_derivs();
+
 X = [x; u; h]; % state variable for snopt
 X_lb = [x_lb; u_lb; h_lb]; % xlow in SNOPT documentation
 X_ub = [x_ub; u_ub; h_ub]; % xupp in SNOPT documentation
 xmul = []; 
 xstate = [];
+
+[A2,iAfun2,jAvar2,iGfun2,jGvar2] = snJac(@cart_pole_userfun_obj,X,X_lb,X_ub,size(nF,1));
+
+A = [A1; A2];
+iAfun = [iAfun1; iAfun2];
+jAvar = [jAvar1; jAvar2];
+iGfun = [iGfun1; iGfun2];
+jGvar = [jGvar1; jGvar2];
 
 % Note: +/- 1e-15 used in leiu of 0 for floating point errors
 F_lb = [-inf; ones(n_x*(N-1),1)*1e-15; ...
@@ -60,12 +70,13 @@ snprint('cart_pole_snopt.out');
 
 cart_pole_snopt.spc = which('cart_pole_snopt.spc');
 snspec(cart_pole_snopt.spc);
-options.name = 'cart_pole';
+options.name = 'cartpole';
 snset ('Minimize');
+
 
 [X,F,INFO,xmul,Fmul,xstate,Fstate,output] = snopt (X, X_lb, X_ub, xmul, xstate,...
                    F_lb, F_ub, Fmul, Fstate, @cart_pole_userfun,...
-                   ObjAdd, ObjRow, options);
+                   ObjAdd, ObjRow, A, iAfun, jAvar, iGfun, jGvar, options);
 
 snprint off; % Closes the file and empties the print buffer
 snend;
