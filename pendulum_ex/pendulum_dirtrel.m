@@ -21,8 +21,8 @@ x(end-1) = pi; x_lb(end-1) = pi; x_ub(end-1) = pi;
 x(end) = 0;    x_lb(end) = 0;    x_ub(end) = 0;
 
 u = zeros(n_u*(N-1), 1); % dimension of u * N
-u_const_lower = -2; % u constraint lower bound
-u_const_upper = 2;  % u constraint upper bound
+u_const_lower = -10; % u constraint lower bound
+u_const_upper = 10;  % u constraint upper bound
 u_lb = repmat(u_const_lower, n_u*(N-1), 1);
 u_ub = repmat(u_const_upper, n_u*(N-1), 1);
 
@@ -85,4 +85,4 @@ dirtrel_u = zeros(N-1,1);
 for i = 1:N-1
     dirtrel_u(i) = X(2*N+i);
 end
-pendulum_plot(t,dirtrel_thetas, u)
+pendulum_plot(t,dirtrel_thetas, u, 1)

@@ -1,6 +1,9 @@
-function pendulum_plot(t, th, u)
-
-figure(1)
+function pendulum_plot(t, th, u, isDirtrel)
+if isDirtrel
+    figure(1)
+else
+    figure(2)
+end
 clf
 set(gcf,'color','white')
 
@@ -9,7 +12,7 @@ B = 2;
 xrange = [min(th) - B, max(th) + B];
 tic
 
-global L N
+global L N m m_test D
 pend = .1;
 px = L*sin(th);
 py = - L*cos(th);
@@ -40,21 +43,25 @@ while i<=numel(t)
     ylim([-1.5 1.5]);
     xlabel('y');
     ylabel('z');
-    titl = sprintf('Trajectory t =  %.2f',t(i));
-    title(titl);
+    if isDirtrel
+        title(sprintf('Model Mass = %.2f $\\pm$ %.2f', m, sqrt(D)), 'Interpreter', 'Latex');
+    else
+        title(sprintf('Mass = %.2f, Model Mass = %.2f $\\pm$ %.2f', m_test, m, sqrt(D)) , 'Interpreter', 'latex');
+    end
     
-%     subplot(2,1,2)
-%     if i< N
-%         plot(t(1:i), u(1:i), 'Color', blue, 'LineWidth', 1.25)
-%     else
-%         plot(t, [u; 0], 'Color', blue, 'LineWidth', 1.25)
-%     end
-%     title('Control');
-%     ylabel('u')
-%     xlabel('t')
-%     ylim([-max(-min(u),max(u)) max(-min(u),max(u))]);
-%     xlim([min(t) max(t)]);
-
+    %if isDirtrel
+        subplot(2,1,2)
+        if i< N
+            plot(t(1:i), u(1:i), 'Color', blue, 'LineWidth', 1.25)
+        else
+            plot(t, [u; 0], 'Color', blue, 'LineWidth', 1.25)
+        end
+        title('Control', 'Interpreter', 'latex');
+        ylabel('u')
+        xlabel('t')
+        ylim([-max(-min(u),max(u)) max(-min(u),max(u))]);
+        xlim([min(t) max(t)]);
+    %end
     
     compu = toc - start;
     stale_i = max(stale,compu*2);
