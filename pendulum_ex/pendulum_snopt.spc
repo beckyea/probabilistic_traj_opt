@@ -4,4 +4,5 @@ Begin pendulum_snopt
 *                             (JFLXBT)
    Minor print level                1
    Solution                       Yes
+   Major optimality tolerance    1e−3
 End pendulum_snopt

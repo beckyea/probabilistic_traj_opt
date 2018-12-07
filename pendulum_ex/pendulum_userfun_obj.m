@@ -1,4 +1,4 @@
-function [F, G] = pendulum_userfun(X)
+function [F] = pendulum_userfun_obj(X)
 %PENDULUM_USERFUN Defines nonlinear part 
 global N Q R n_u n_x;
 x = X(1:N*n_x);
@@ -20,10 +20,10 @@ for i = 1:N
         x_ip1 = X(n_x*i+1:n_x*(i+1));
         u_i = u(i);
         F(1) = F(1) + cost(x_i, u_i, h);
-        [theta_fun, thetadot_fun] = f_h(x_i, u_i, h, x_ip1);
-        % Dynamics Constraints
-        F(n_c + n_x*i-1) = theta_fun;
-        F(n_c + n_x*i) = thetadot_fun;
+%         [theta_fun, thetadot_fun] = f_h(x_i, u_i, h, x_ip1);
+%         % Dynamics Constraints
+%         F(n_c + n_x*i-1) = theta_fun;
+%         F(n_c + n_x*i) = thetadot_fun;
         sqrt_KEK = sqrt(K{i}*E{i}*K{i}');
         for j = 1:n_u
             u_plus_col = u_i + sqrt_KEK(:, j);
@@ -31,7 +31,6 @@ for i = 1:N
         F(n_c + n_d + n_e*(i-1) + 2*n_x*n_x + n_u) = u_plus_col;
         F(n_c + n_d + n_e*(i-1) + 2*n_x*n_x + 2*n_u) = u_minus_col;
         end
-        G((i-1)*5+1:i*5,:) = f_h_derivs(x_i, u_i, h, i);
     end
     sqrt_E = sqrt(E{i});
     for j = 1:n_x
@@ -47,43 +46,4 @@ function [c] = cost(x, u, h)
 global Q R;
 dx = [x(1) - pi; x(2)];
 c = dx'*Q*dx + u*R*u + h;
-end
-
-function [theta_fun, thetadot_fun] = f_h(x, u, h, x_ip1)
-global g L m;
-    theta_i = x(1);
-    thetadot_i = x(2);
-    theta_ip1 = x_ip1(1);
-    thetadot_ip1 = x_ip1(2);
-    theta_fun = theta_ip1 - (theta_i + thetadot_i*h);
-    thetadot_fun = thetadot_ip1 - (thetadot_i - g*h*sin(theta_i)/L + u*h/(m*L*L));
-%     disp("theta:" + theta_i + " thetad:" + thetadot_i + " theta1:" + theta_ip1...
-%         + " thetad1:" + thetadot_ip1 + " theta_fun:" + theta_fun + " thetad_fun" + thetadot_fun);
-end
-
-function [G] = f_h_derivs(x_i, u_i, h, i)
-% A in the format [i, j, A]
-% G in the format [i, j, G]
-global n_x n_u n_c N m L g
-
-    theta_i    = x_i(1);
-    thetadot_i = x_i(2);
-
-    thi = n_x*(i-1)+1;
-    thdi = n_x*(i-1)+2;
-
-    ui = n_x*N+n_u*(i-1)+1;
-    hi = n_x*N+n_u*(N-1)+1;
-
-    th_f = n_c + n_x*i-1;
-    thd_f = n_c + n_x*i;
-
-G = [thdi, th_f, -h;
-     thi, thd_f, (g*h*cos(theta_i))/L;
-     ui, thd_f, -h/(L^2*m);
-     hi, th_f, -thetadot_i;
-     hi, thd_f,(g*sin(theta_i))/L - u_i/(L^2*m)];
-
-G = sparse(G(:,3));
-
 end

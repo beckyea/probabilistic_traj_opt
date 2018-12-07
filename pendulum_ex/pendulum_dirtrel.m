@@ -33,17 +33,28 @@ h_ub = 0.1;
 ObjAdd = 0;
 ObjRow = 1;
 
+[A1, iAfun1, jAvar1, iGfun1, jGvar1] = pendulum_const_derivs();
+
+
 X = [x; u; h]; % state variable for snopt
 X_lb = [x_lb; u_lb; h_lb]; % xlow in SNOPT documentation
 X_ub = [x_ub; u_ub; h_ub]; % xupp in SNOPT documentation
 xmul = []; 
 xstate = [];
 
+[A2,iAfun2,jAvar2,iGfun2,jGvar2] = snJac(@pendulum_userfun_obj,X,X_lb,X_ub,size(nF,1));
+
+A = [A1; A2];
+iAfun = [iAfun1; iAfun2];
+jAvar = [jAvar1; jAvar2];
+iGfun = [iGfun1; iGfun2];
+jGvar = [jGvar1; jGvar2];
+
 % Note: +/- 1e-15 used in leiu of 0 for floating point errors
-F_lb = [-inf; ones(n_x*(N-1),1)*1e-20; ...
+F_lb = [-inf; zeros(n_x*(N-1),1); ...
     repmat([repmat(x_const_lower, n_x*2, 1); repmat(u_const_lower, n_u*2, 1)], N-1, 1);...
     repmat(x_const_lower, n_x*2, 1)];
-F_ub = [inf; ones(n_x*(N-1),1)*1e-20; ...
+F_ub = [inf; zeros(n_x*(N-1),1); ...
     repmat([repmat(x_const_upper, n_x*2, 1); repmat(u_const_upper, n_u*2, 1)], N-1, 1);...
     repmat(x_const_upper, n_x*2, 1)];
 Fmul = [];
@@ -62,7 +73,7 @@ snset ('Minimize');
 
 [X,F,INFO,xmul,Fmul,xstate,Fstate,output] = snopt (X, X_lb, X_ub, xmul, xstate,...
                    F_lb, F_ub, Fmul, Fstate, @pendulum_userfun,...
-                   ObjAdd, ObjRow, options);
+                   ObjAdd, ObjRow, A, iAfun, jAvar, iGfun, jGvar, options);
 
 snprint off; % Closes the file and empties the print buffer
 snend
